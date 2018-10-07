@@ -54,7 +54,6 @@ void keyPressed(){
   if(key == 'q' && p1Selection == false){
     player1 = 1;
     p1Selection = true;
-    print("hello");
   }
   else if(key == 'w' && p1Selection == false){
     player1 = 2;
@@ -63,7 +62,6 @@ void keyPressed(){
   if(key == 'o' && p2Selection == false){
     player2 = 1;
     p2Selection = true;
-    print("lul");
   }
   else if(key == 'p' && p2Selection == false){
     player2 = 2;
