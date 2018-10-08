@@ -18,9 +18,9 @@ Your group has been assigned the following not-very-exciting game:
 ### Each group should do the following with the game assigned to them:
 
 1. Is this game considered a "game" according to the definitions we covered in class? Discuss. If the game is
-a game according to some denitions but not all, explain both.
+a game according to some definitions but not all, explain both.
 
-2. What makes this game seem \broken"? Why is it not very much fun to play?
+2. What makes this game seem "broken"? Why is it not very much fun to play?
 
 3. What are the constitutive rules of the game?
 
@@ -46,7 +46,7 @@ coins in your digitized game. You may revise starting with the constitutive rule
 ### Your submission should consist of the following:
 * A PDF document (no other file formats will be accepted) with written answers to questions 1 - 3 and 5.
 The document should also contain a brief description of your brainstorming/creation process and insights
-gleaned from playtesting (e.g. \Initially, we planned to do X but when we played it, we realized that Y
+gleaned from playtesting (e.g. "Initially, we planned to do X but when we played it, we realized that Y
 would be better . . . ")
 
 * Your digital game posted on OpenProcessing and a file / zipped folder of your code. Make sure that the
