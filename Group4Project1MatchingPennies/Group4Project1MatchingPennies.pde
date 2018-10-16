@@ -9,12 +9,10 @@
  - Huoliang Chen
  - Joel Franco
  */
-int player1 = 0;  // Player 1 coin choice
-int player2 = 0;  // Player 2 coin choice
-boolean p1Selection = false;  // Player 1's turn end
-boolean p2Selection = false;  // Player 2's turn end
 color backgroundColor = color(0);  // Black
 PImage heads, tails;
+Player player1;
+Player player2;
 
 void setup() {
   size(600, 600);
@@ -25,6 +23,9 @@ void setup() {
   //image(heads, width/4, height/2);
   tails = loadImage("tails.png");
   //image(tails, width - width/4, height/2);
+  
+  player1 = new Player();
+  player2 = new Player();
 
   textAlign(CENTER);
   text("Both players have a penny and choose either heads or tails.", width/2, height/5);
@@ -32,17 +33,17 @@ void setup() {
   //ellipse(width/4, height/2, 100, 100);
   //ellipse(width - width/4, height/2, 100, 100);
   textAlign(RIGHT);
-  text("Player 1 press 'Q' for heads and 'W' for tails", width/2 - 20, height/3 + 20);
+  text("Player 1 press 'Q' for heads or 'W' for tails", width/2 - 20, height/3 + 20);
   textAlign(LEFT);
-  text("Player 2 press 'O' for heads and 'P' for tails", width/2 + 30, height/3 + 20);
+  text("Player 2 press 'O' for heads or 'P' for tails", width/2 + 30, height/3 + 20);
   textAlign(CENTER);
   text("Press space to reset", width/2, height - 50);
 }
 
 void draw() {
-  if (p1Selection && p2Selection) {
-    if (player1 == player2 ) {
-      if (player1 == 1 && player2 == 1) {
+  if (player1.getTurn() && player2.getTurn()) {
+    if (player1.getCoin().equalsIgnoreCase(player2.getCoin())) {
+      if (player1.getCoin().equalsIgnoreCase("heads")) {
         image(heads, width/4, height/2);
         image(heads, width - width/4, height/2);
         text("Heads", width/4, height - height/3);
@@ -55,7 +56,7 @@ void draw() {
       }
       text("The pennies match. Player 1 wins!", width/2, height - 150);
     } else {
-      if (player1 == 1 && player2 == 2) {
+      if (player1.getCoin().equalsIgnoreCase("heads")) {
         image(heads, width/4, height/2);
         image(tails, width - width/4, height/2);
         text("Heads", width/4, height - height/3);
@@ -72,24 +73,24 @@ void draw() {
 }
 
 void keyPressed() {
-  if (key == 'Q' || key == 'q' && p1Selection == false) {
-    player1 = 1;
-    p1Selection = true;
+  if (key == 'Q' || key == 'q' && !player1.getTurn()) {
+    player1.setCoin("heads");
+    player1.setTurn(true);
   }
 
-  if (key == 'W' || key == 'w' && p1Selection == false) {
-    player1 = 2;
-    p1Selection = true;
+  if (key == 'W' || key == 'w' && !player1.getTurn()) {
+    player1.setCoin("tails");
+    player1.setTurn(true);
   }
 
-  if (key == 'O' || key == 'o' && p2Selection == false) {
-    player2 = 1;
-    p2Selection = true;
+  if (key == 'O' || key == 'o' && !player2.getTurn()) {
+    player2.setCoin("heads");
+    player2.setTurn(true);
   }
 
-  if (key == 'P' || key == 'p' && p2Selection == false) {
-    player2 = 2;
-    p2Selection = true;
+  if (key == 'P' || key == 'p' && !player2.getTurn()) {
+    player2.setCoin("tails");
+    player2.setTurn(true);
   }
 
   if (key == ' ') {
@@ -98,9 +99,31 @@ void keyPressed() {
 }
 
 void reset() {
-  player1 = 0;
-  player2 = 0;
-  p1Selection = false;
-  p2Selection = false;
   setup();
+}
+
+class Player {
+  String coin;
+  boolean turn;
+  
+  Player() {
+    coin = " ";
+    turn = false;
+  }
+  
+  void setCoin(String chosen) {
+    coin = chosen;
+  }
+  
+  void setTurn(boolean selected) {
+    turn = selected;
+  }
+  
+  String getCoin() {
+    return coin;
+  }
+  
+  boolean getTurn() {
+    return turn;
+  }
 }
