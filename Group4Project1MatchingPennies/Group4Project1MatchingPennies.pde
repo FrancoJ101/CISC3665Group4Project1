@@ -15,7 +15,7 @@ Player player1;
 Player player2;
 
 void setup() {
-  size(600, 600);
+  size(800, 650);
   background(backgroundColor);
 
   heads = loadImage("heads.png");  
@@ -23,7 +23,7 @@ void setup() {
   //image(heads, width/4, height/2);
   tails = loadImage("tails.png");
   //image(tails, width - width/4, height/2);
-  
+
   player1 = new Player();
   player2 = new Player();
 
@@ -102,27 +102,36 @@ void reset() {
   setup();
 }
 
+void createGrid(int rows, int columns) { // Creates a grid based on rows and columns 
+  for (int i = 0; i < rows; i++)
+  {
+    for (int j = 0; i < columns; j++)
+    {
+    }
+  }
+}
+
 class Player {
   String coin;
   boolean turn;
-  
+
   Player() {
     coin = " ";
     turn = false;
   }
-  
+
   void setCoin(String chosen) {
     coin = chosen;
   }
-  
+
   void setTurn(boolean selected) {
     turn = selected;
   }
-  
+
   String getCoin() {
     return coin;
   }
-  
+
   boolean getTurn() {
     return turn;
   }
