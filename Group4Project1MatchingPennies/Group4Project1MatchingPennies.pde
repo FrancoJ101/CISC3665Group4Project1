@@ -42,8 +42,8 @@ void setup() {
 
 void draw() {
   if (player1.getTurn() && player2.getTurn()) {
-    if (player1.getCoin().equalsIgnoreCase(player2.getCoin())) {
-      if (player1.getCoin().equalsIgnoreCase("heads")) {
+    if (player1.getCoin() == player2.getCoin()) {
+      if (player1.getCoin() == 'h') {
         image(heads, width/4, height/2);
         image(heads, width - width/4, height/2);
         text("Heads", width/4, height - height/3);
@@ -56,7 +56,7 @@ void draw() {
       }
       text("The pennies match. Player 1 wins!", width/2, height - 150);
     } else {
-      if (player1.getCoin().equalsIgnoreCase("heads")) {
+      if (player1.getCoin() == 'h') {
         image(heads, width/4, height/2);
         image(tails, width - width/4, height/2);
         text("Heads", width/4, height - height/3);
@@ -74,22 +74,22 @@ void draw() {
 
 void keyPressed() {
   if (key == 'Q' || key == 'q' && !player1.getTurn()) {
-    player1.setCoin("heads");
+    player1.setCoin('h');
     player1.setTurn(true);
   }
 
   if (key == 'W' || key == 'w' && !player1.getTurn()) {
-    player1.setCoin("tails");
+    player1.setCoin('t');
     player1.setTurn(true);
   }
 
   if (key == 'O' || key == 'o' && !player2.getTurn()) {
-    player2.setCoin("heads");
+    player2.setCoin('h');
     player2.setTurn(true);
   }
 
   if (key == 'P' || key == 'p' && !player2.getTurn()) {
-    player2.setCoin("tails");
+    player2.setCoin('t');
     player2.setTurn(true);
   }
 
@@ -103,15 +103,17 @@ void reset() {
 }
 
 class Player {
-  String coin;
-  boolean turn;
+  char coin;    //Player coin face selection; "heads" or "tails"
+  boolean turn;   //Whether player made selection or not
+  int points;
   
   Player() {
-    coin = " ";
+    coin = ' ';
     turn = false;
+    points = 500;
   }
   
-  void setCoin(String chosen) {
+  void setCoin(char chosen) {
     coin = chosen;
   }
   
@@ -119,11 +121,52 @@ class Player {
     turn = selected;
   }
   
-  String getCoin() {
+  void setPoints(int changed) {
+    points = changed;
+  }
+  
+  char getCoin() {
     return coin;
   }
   
   boolean getTurn() {
     return turn;
+  }
+  
+  int getPoints() {
+    return points;
+  }
+}
+
+class Card {
+  char coin;
+  boolean clicked;
+  PImage cardImage;
+  PImage cardImageFlipped;
+  
+  Card(char value) {
+    coin = value;
+    clicked = false;
+    //assign card image to cardImage
+    
+    if (coin == 'h') {
+      //assign heads image to cardImageFlipped
+    } else if (coin == 't') {
+      //assign tails image to cardImageFlipped
+    } else {
+      //assign wildcard image to cardImageFlipped
+    }
+  }
+  
+  void setClicked() { 
+    clicked = true;
+  }
+ 
+  PImage getImage() {
+    return cardImage;
+  }
+  
+  PImage getImageFlipped() {
+    return cardImageFlipped;
   }
 }
