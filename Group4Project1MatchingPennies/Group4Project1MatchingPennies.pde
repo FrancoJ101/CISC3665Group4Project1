@@ -43,58 +43,10 @@ void setup() {
 }
 
 void draw() {
-  //if (player1.getTurn() && player2.getTurn()) {
-  //  if (player1.getCoin().equalsIgnoreCase(player2.getCoin())) {
-  //    if (player1.getCoin().equalsIgnoreCase("heads")) {
-  //      image(heads, width/4, height/2);
-  //      image(heads, width - width/4, height/2);
-  //      text("Heads", width/4, height - height/3);
-  //      text("Heads", width - width/4, height - height/3);
-  //    } else {
-  //      image(tails, width/4, height/2);
-  //      image(tails, width - width/4, height/2);
-  //      text("Tails", width/4, height - height/3);
-  //      text("Tails", width - width/4, height - height/3);
-  //    }
-  //    text("The pennies match. Player 1 wins!", width/2, height - 150);
-  //  } else {
-  //    if (player1.getCoin().equalsIgnoreCase("heads")) {
-  //      image(heads, width/4, height/2);
-  //      image(tails, width - width/4, height/2);
-  //      text("Heads", width/4, height - height/3);
-  //      text("Tails", width - width/4, height - height/3);
-  //    } else {
-  //      image(tails, width/4, height/2);
-  //      image(heads, width - width/4, height/2);
-  //      text("Tails", width/4, height - height/3);
-  //      text("Heads", width - width/4, height - height/3);
-  //    }
-  //    text("The pennies do not match. Player 2 wins!", width/2, height - 150);
-  //  }
-  //}
+
 }
 
 void keyPressed() {
-  if (key == 'Q' || key == 'q' && !player1.getTurn()) {
-    player1.setCoin('h');
-    player1.setTurn(true);
-  }
-
-  if (key == 'W' || key == 'w' && !player1.getTurn()) {
-    player1.setCoin('t');
-    player1.setTurn(true);
-  }
-
-  if (key == 'O' || key == 'o' && !player2.getTurn()) {
-    player2.setCoin('h');
-    player2.setTurn(true);
-  }
-
-  if (key == 'P' || key == 'p' && !player2.getTurn()) {
-    player2.setCoin('t');
-    player2.setTurn(true);
-  }
-
   if (key == ' ') {
     reset();
   }
