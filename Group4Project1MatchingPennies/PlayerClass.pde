@@ -1,6 +1,6 @@
 class Player {
-  char coin;    //Player coin face selection; "heads" or "tails"
-  boolean turn;   //Whether player made selection or not
+  char coin;      // Player coin face selection; "heads" or "tails" or "wildcard"
+  boolean turn;   // Whether player made selection or not
   int points;
 
   Player() {

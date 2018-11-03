@@ -31,7 +31,25 @@ void setup() {
 }
 
 void draw() {
+  if (gameState == true)
+  {
     createGrid();
+  } else {                                  // End game result gets printed to screen
+    if (player1.points > player2.points)
+    {
+      textAlign(CENTER);
+      text("Player 1 Wins!", width/2, height/2);
+    }
+    if (player1.points < player2.points)
+    {
+      textAlign(CENTER);
+      text("Player 2 Wins!", width/2, height/2);
+    } else
+    {
+      textAlign(CENTER);
+      text("It's a draw!", width/2, height/2);
+    }
+  }
 }
 
 void keyPressed() {
