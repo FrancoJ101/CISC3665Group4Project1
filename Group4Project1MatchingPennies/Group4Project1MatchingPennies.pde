@@ -9,9 +9,13 @@
  - Huoliang Chen
  - Joel Franco
  */
-color backgroundColor = color(0);  // Black
-int w = width, h = height;  // Width and Height
-PImage[] images = new PImage[4];  // 0 - heads, 1 - tails, 2 - draw, 3 - card
+color backgroundColor = color(0);                    // Black
+int w = width, h = height;                           // Width and Height
+Card[] cards = new Card[9];                          // 9 cards to be arranged into a 3x3 grid
+String[] values = {"heads", "tails", "wildcard"};    // Values used when generating each of the 9 cards
+int headsCount = 0;                                  // Tracks number of 'heads' cards generated
+int tailsCount = 0;                                  // Tracks number of 'tails' cards generated
+int wildcardCount = 0;                               // Tracks number of 'wildcard' cards generated
 boolean gameState = false;
 Player player1;
 Player player2;
@@ -20,12 +24,7 @@ void setup() {
   size(800, 650);
   background(backgroundColor);
 
-  for (int i=0; i < images.length; i++)
-  {
-    imageMode(CENTER);
-    images[i] = loadImage( i + ".png");
-    images[i].resize(100,100);
-  }
+  generateCards();
 
   player1 = new Player();
   player2 = new Player();
@@ -49,6 +48,14 @@ void draw() {
 void keyPressed() {
   if (key == ' ') {
     reset();
+  }
+}
+
+void generateCards() {
+  int num = 0;
+  for (int i = 0; i < 9; i++) {
+    num = (int) random(0,3);
+    cards[i] = new Card(values[num]);
   }
 }
 

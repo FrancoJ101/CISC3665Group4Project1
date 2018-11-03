@@ -1,21 +1,17 @@
 class Card {
-  char coin;
+  String coin;
   boolean clicked;
   PImage cardImage;
   PImage cardImageFlipped;
 
-  Card(char value) {
+  Card(String value) {
     coin = value;
     clicked = false;
-    //assign card image to cardImage
-
-    if (coin == 'h') {
-      //assign heads image to cardImageFlipped
-    } else if (coin == 't') {
-      //assign tails image to cardImageFlipped
-    } else {
-      //assign wildcard image to cardImageFlipped
-    }
+    imageMode(CENTER);
+    cardImage = loadImage( "default.png" );
+    cardImage.resize(100,100);
+    cardImageFlipped = loadImage(value + ".png");
+    cardImageFlipped.resize(100,100);
   }
 
   void setClicked() { 
