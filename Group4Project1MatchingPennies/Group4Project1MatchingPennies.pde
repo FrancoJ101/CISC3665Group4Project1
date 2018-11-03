@@ -9,39 +9,21 @@
  - Huoliang Chen
  - Joel Franco
  */
-<<<<<<< HEAD
+
 color backgroundColor = color(0);                    // Black
 int w = width, h = height;                           // Width and Height
 Card[] cards = new Card[9];                          // 9 cards to be arranged into a 3x3 grid
 String[] values = {"heads", "tails", "wildcard"};    // Values used when generating each of the 9 cards
-int headsCount = 0;                                  // Tracks number of 'heads' cards generated
-int tailsCount = 0;                                  // Tracks number of 'tails' cards generated
-int wildcardCount = 0;                               // Tracks number of 'wildcard' cards generated
+int headsCount, tailsCount, wildcardCount;           // Tracks number of 'heads', 'tails', and 'wildcard' generated                           
 boolean gameState = false;
-Player player1;
-Player player2;
-=======
+Player player1, player2;                             
 
-color backgroundColor = color(0);  // Black
-int w = width, h = height;  // Width and Height
-PImage[] images = new PImage[4];  // 0 - heads, 1 - tails, 2 - draw, 3 - card
-boolean gameState = false;  // Initializes game state 
-Player player1, player2;  // Creates two player objects
->>>>>>> a5aa32a95da89d4dd9e5f362d8fd337e1a5b7c78
 
 void setup() {
   size(800, 650);
   background(backgroundColor);
 
-<<<<<<< HEAD
   generateCards();
-=======
-  for (int i=0; i < images.length; i++) {  // Loads images into array
-    imageMode(CENTER);
-    images[i] = loadImage( i + ".png");
-    images[i].resize(100, 100);
-  }
->>>>>>> a5aa32a95da89d4dd9e5f362d8fd337e1a5b7c78
 
   player1 = new Player();
   player2 = new Player();
