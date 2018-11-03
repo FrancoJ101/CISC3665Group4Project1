@@ -24,6 +24,7 @@ void setup() {
   {
     imageMode(CENTER);
     images[i] = loadImage( i + ".png");
+    images[i].resize(100,100);
   }
 
   player1 = new Player();
