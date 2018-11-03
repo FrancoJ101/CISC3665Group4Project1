@@ -9,22 +9,21 @@
  - Huoliang Chen
  - Joel Franco
  */
+
 color backgroundColor = color(0);  // Black
 int w = width, h = height;  // Width and Height
 PImage[] images = new PImage[4];  // 0 - heads, 1 - tails, 2 - draw, 3 - card
-boolean gameState = false;
-Player player1;
-Player player2;
+boolean gameState = false;  // Initializes game state 
+Player player1, player2;  // Creates two player objects
 
 void setup() {
   size(800, 650);
   background(backgroundColor);
 
-  for (int i=0; i < images.length; i++)
-  {
+  for (int i=0; i < images.length; i++) {  // Loads images into array
     imageMode(CENTER);
     images[i] = loadImage( i + ".png");
-    images[i].resize(100,100);
+    images[i].resize(100, 100);
   }
 
   player1 = new Player();
@@ -43,7 +42,6 @@ void setup() {
 }
 
 void draw() {
-
 }
 
 void keyPressed() {
