@@ -3,15 +3,16 @@ class Card {
   boolean clicked;
   PImage cardImage;
   PImage cardImageFlipped;
-
+  int x, y;
+  
   Card(String value) {
     coin = value;
     clicked = false;
     imageMode(CENTER);
     cardImage = loadImage( "default.png" );
-    cardImage.resize(100, 100);
+    cardImage.resize(80, 80);
     cardImageFlipped = loadImage(value + ".png");
-    cardImageFlipped.resize(100, 100);
+    cardImageFlipped.resize(80, 80);
   }
 
   void setClicked() { 

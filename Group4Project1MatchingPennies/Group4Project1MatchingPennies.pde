@@ -1,4 +1,4 @@
-import java.util.Random; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import java.util.Random; //<>//
 
 /* 
  CISC 3665 (Game Design, Fall '18) - Project 1
@@ -13,7 +13,6 @@ import java.util.Random; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
  */
 
 color backgroundColor = color(0);                      // Black
-int w = width, h = height;                             // Width and Height
 Card[] cards = new Card[9];                            // 9 cards to be arranged into a 3x3 grid
 //String[] values = {"wildcard", "heads", "tails"};    // Values used when generating each of the 9 cards
 //int headsCount, tailsCount, wildcardCount;           // Tracks number of 'heads', 'tails', and 'wildcard' generated                           
@@ -22,14 +21,14 @@ Player player1, player2;
 
 
 void setup() {
-  size(800, 650);
+  size(800, 600);
   background(backgroundColor);
 
   generateCards();
   player1 = new Player();
   player2 = new Player();
 
-  createGrid();
+
   textAlign(CENTER);
   text("Both players have a penny and choose either heads or tails.", width/2, height/8);
   text("If they match, Player 1 wins. If not, Player 2 wins.", width/2, height/6);
@@ -42,24 +41,24 @@ void setup() {
 }
 
 void draw() {
-  createGrid();
+    createGrid();
 }
 
 void keyPressed() {
   if (key == ' ') {
-    gameState = false;
     reset();
   }
 }
 
 void mouseClicked() {
   for (int i = 0; i < cards.length; i++) {
-    cards[i].setClicked();
+    if (dist(mouseX, mouseY, cards[i].x, cards[i].y) < 35)
+      cards[i].setClicked();
   }
 }
 
 void reset() {
-  gameState = false;
+  //gameState = false;
   setup();
 }
 
