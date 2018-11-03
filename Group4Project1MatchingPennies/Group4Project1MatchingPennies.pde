@@ -1,3 +1,5 @@
+import java.util.Random; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+
 /* 
  CISC 3665 (Game Design, Fall '18) - Project 1
  Group 4
@@ -10,12 +12,12 @@
  - Joel Franco
  */
 
-color backgroundColor = color(0);                    // Black
-int w = width, h = height;                           // Width and Height
-Card[] cards = new Card[9];                          // 9 cards to be arranged into a 3x3 grid
-String[] values = {"heads", "tails", "wildcard"};    // Values used when generating each of the 9 cards
-int headsCount, tailsCount, wildcardCount;           // Tracks number of 'heads', 'tails', and 'wildcard' generated                           
-boolean gameState = false;
+color backgroundColor = color(0);                      // Black
+int w = width, h = height;                             // Width and Height
+Card[] cards = new Card[9];                            // 9 cards to be arranged into a 3x3 grid
+//String[] values = {"wildcard", "heads", "tails"};    // Values used when generating each of the 9 cards
+//int headsCount, tailsCount, wildcardCount;           // Tracks number of 'heads', 'tails', and 'wildcard' generated                           
+boolean gameState = false;  
 Player player1, player2;                             
 
 
@@ -24,7 +26,6 @@ void setup() {
   background(backgroundColor);
 
   generateCards();
-
   player1 = new Player();
   player2 = new Player();
 
@@ -41,22 +42,56 @@ void setup() {
 }
 
 void draw() {
+  createGrid();
 }
 
 void keyPressed() {
   if (key == ' ') {
+    gameState = false;
     reset();
   }
 }
 
-void generateCards() {
-  int num = 0;
-  for (int i = 0; i < 9; i++) {
-    num = (int) random(0,3);
-    cards[i] = new Card(values[num]);
+void mouseClicked() {
+  for (int i = 0; i < cards.length; i++) {
+    cards[i].setClicked();
   }
 }
 
 void reset() {
+  gameState = false;
   setup();
+}
+
+void generateCards() {
+  int num = 0, wildcardCount = 0, headsCount = 0, tailsCount = 0;
+  ArrayList<String> cardValues = new ArrayList();
+  cardValues.add("wildcard");  // Wildcard
+  cardValues.add("heads");     // Heads
+  cardValues.add("tails");     // Tails
+  Random random = new Random();
+
+  for (int i = 0; i < 9; i++) {
+    num = random.nextInt(cardValues.size());
+    if (num == 0) {
+      if (wildcardCount == 1) {
+        num = random.nextInt(cardValues.size());
+      } else {
+        wildcardCount++;
+      }
+    } else if (num == 1) {
+      if (headsCount == 4) {
+        num = random.nextInt(cardValues.size());
+      } else {
+        headsCount++;
+      }
+    } else if (num == 2) {
+      if (tailsCount == 4) {
+        num = random.nextInt(cardValues.size());
+      } else {
+        tailsCount++;
+      }
+    }
+    cards[i] = new Card(cardValues.get(num));
+  }
 }

@@ -9,9 +9,9 @@ class Card {
     clicked = false;
     imageMode(CENTER);
     cardImage = loadImage( "default.png" );
-    cardImage.resize(100,100);
+    cardImage.resize(100, 100);
     cardImageFlipped = loadImage(value + ".png");
-    cardImageFlipped.resize(100,100);
+    cardImageFlipped.resize(100, 100);
   }
 
   void setClicked() { 
@@ -19,10 +19,10 @@ class Card {
   }
 
   PImage getImage() {
-    return cardImage;
-  }
-
-  PImage getImageFlipped() {
-    return cardImageFlipped;
+    if (clicked == false) {
+      return cardImage;
+    } else {    
+      return cardImageFlipped;
+    }
   }
 }
