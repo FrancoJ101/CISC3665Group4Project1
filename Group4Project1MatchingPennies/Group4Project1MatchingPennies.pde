@@ -62,7 +62,7 @@ void reset() {
   setup();
 }
 
-void generateCards() {
+/*void generateCards() {
   int num = 0, wildcardCount = 0, headsCount = 0, tailsCount = 0;
   ArrayList<String> cardValues = new ArrayList();
   cardValues.add("wildcard");  // Wildcard
@@ -92,5 +92,33 @@ void generateCards() {
       }
     }
     cards[i] = new Card(cardValues.get(num));
+  }
+}*/
+
+void generateCards() {
+  int num = 0, wildcardCount = 0, headsCount = 0, tailsCount = 0, totalCount = 0;
+  String[] cardValues = {"wildcard","heads","tails"};
+
+  while (totalCount < 9) {
+    num = (int) random(0,3);
+    if (num == 0) {
+      if (wildcardCount < 1) {
+        cards[totalCount] = new Card(cardValues[num]);
+        wildcardCount++;
+        totalCount++;
+      }
+    } else if (num == 1) {
+      if (headsCount < 4) {
+        cards[totalCount] = new Card(cardValues[num]);
+        headsCount++;
+        totalCount++;
+      }
+    } else if (num == 2) {
+      if (tailsCount < 4) {
+        cards[totalCount] = new Card(cardValues[num]);
+        tailsCount++;
+        totalCount++;
+      }
+    }
   }
 }
