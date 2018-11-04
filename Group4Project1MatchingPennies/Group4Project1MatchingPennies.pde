@@ -29,7 +29,6 @@ void setup() {
 }
 
 void draw() {
-  println(numberOfCardSelected);
   background(backgroundColor);
   printRules();
   if (gameState == true) {
