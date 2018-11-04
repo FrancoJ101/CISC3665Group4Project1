@@ -16,19 +16,24 @@ boolean gameState = true, roundState = true;  // Keeps track of both game and ro
 Player player1, player2;                      // Creates two player objects                             
 
 void setup() {
-  //size(800, 600);
-  fullScreen();
-  background(backgroundColor);
+  size(800, 600);
+  //fullScreen();
+  //background(backgroundColor);
   player1 = new Player();  
   player2 = new Player();
   generateCards();
-  printRules();
-  printScore(player1, player2);
+  //printRules();
+  //printScore(player1, player2);
   player1.turn = true;
 }
 
 void draw() {
+  background(backgroundColor);
+  printRules();
   if (gameState == true) {
+    if (player1.getPoints() == 0 || player2.getPoints() == 0) {
+      gameState=false;
+    }
     if (roundState == true) {
       createGrid();
       printScore(player1, player2);
@@ -41,8 +46,8 @@ void draw() {
     } else {
       roundResult(player1, player2);
       printScore(player1, player2);
-      textAlign(CENTER);
-      text("Press ENTER to continue", width/2, height - 75);
+      //textAlign(CENTER);
+      //text("Press ENTER to continue", width/2, height - 75);
     }
   } else {
     clear();
@@ -137,30 +142,30 @@ void printScore(Player p1, Player p2) {
 }
 
 void roundResult (Player p1, Player p2) {
-  if (p1.getCoin() == "heads" && p2.getCoin() == "heads")
+  if ((p1.getCoin() == "heads" && p2.getCoin() == "heads")||(p1.getCoin() == "tails" && p2.getCoin() == "tails"))
   {
     //p1.setPoints(p1.getPoints() + 250);
     //p2.setPoints(p2.getPoints() - 250);
-    p1.gainpoint(250);
-    p2.losepoint(250);
-    textAlign(CENTER);
-    text("Player 1 wins this round!", width/2, height - 100);
+    p1.gainPoints(250);
+    p2.losePoints(250);
+    //textAlign(CENTER);
+    //text("Player 1 wins this round!", width/2, height - 100);
     player1.turn=true;
     roundState = true;
-  } else if (p1.getCoin() == "tails" && p2.getCoin() == "tails")
+  } else if ((p1.getCoin() == "heads" && p2.getCoin() == "tails")||(p1.getCoin() == "tails" && p2.getCoin() == "heads"))
   {
     //p1.setPoints(p2.getPoints() + 250);
     //p2.setPoints(p1.getPoints() - 250);
-    p1.gainpoint(250);
-    p2.losepoint(250);
-    textAlign(CENTER);
-    text("Player 2 wins this round!", width/2, height - 100);
+    p1.losePoints(250);
+    p2.gainPoints(250);
+    //textAlign(CENTER);
+    //text("Player 2 wins this round!", width/2, height - 100);
     player1.turn=true;
     roundState = true;
   } else if (p1.getCoin() != " " && p2.getCoin() != " ")
   {
-    textAlign(CENTER);
-    text("This round ended in a draw!", width/2, height - 100);
+    //textAlign(CENTER);
+    //text("This round ended in a draw!", width/2, height - 100);
     player1.turn=true;
     roundState = true;
   }
