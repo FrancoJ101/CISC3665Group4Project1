@@ -139,14 +139,18 @@ void printScore(Player p1, Player p2) {
 void roundResult (Player p1, Player p2) {
   if (p1.getCoin() == "heads" && p2.getCoin() == "heads")
   {
-    p1.setPoints(p1.getPoints() + 250);
-    p2.setPoints(p2.getPoints() - 250);
+    //p1.setPoints(p1.getPoints() + 250);
+    //p2.setPoints(p2.getPoints() - 250);
+    p1.gainpoint(250);
+    p2.losepoint(250);
     textAlign(CENTER);
     text("Player 1 wins this round!", width/2, height - 100);
   } else if (p1.getCoin() == "tails" && p2.getCoin() == "tails")
   {
-    p1.setPoints(p2.getPoints() + 250);
-    p2.setPoints(p1.getPoints() - 250);
+    //p1.setPoints(p2.getPoints() + 250);
+    //p2.setPoints(p1.getPoints() - 250);
+    p1.gainpoint(250);
+    p2.losepoint(250);
     textAlign(CENTER);
     text("Player 2 wins this round!", width/2, height - 100);
   } else if (p1.getCoin() != " " && p2.getCoin() != " ")
