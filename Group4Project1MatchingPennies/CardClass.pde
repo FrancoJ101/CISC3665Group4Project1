@@ -4,7 +4,7 @@ class Card {
   PImage cardImage;
   PImage cardImageFlipped;
   int x, y;
-  
+
   Card(String value) {
     coin = value;
     clicked = false;
@@ -14,11 +14,11 @@ class Card {
     cardImageFlipped = loadImage(value + ".png");
     cardImageFlipped.resize(80, 80);
   }
-  
+
   boolean getClicked() {
     return clicked;
   }
-  
+
   void setClicked() { 
     clicked = true;
   }

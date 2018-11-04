@@ -8,7 +8,7 @@ class Player {
     turn = false;
     points = 500;
   }
-  
+
   void losePoints(int value)
   {
     points-=value;
