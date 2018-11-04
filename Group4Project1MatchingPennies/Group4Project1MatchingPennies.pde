@@ -141,8 +141,8 @@ void roundResult (Player p1, Player p2) {
   {
     //p1.setPoints(p1.getPoints() + 250);
     //p2.setPoints(p2.getPoints() - 250);
-    p1.gainpoint(250);
-    p2.losepoint(250);
+    p1.gainPoints(250);
+    p2.losePoints(250);
     textAlign(CENTER);
     text("Player 1 wins this round!", width/2, height - 100);
     player1.turn=true;
@@ -151,8 +151,8 @@ void roundResult (Player p1, Player p2) {
   {
     //p1.setPoints(p2.getPoints() + 250);
     //p2.setPoints(p1.getPoints() - 250);
-    p1.gainpoint(250);
-    p2.losepoint(250);
+    p1.gainPoints(250);
+    p2.losePoints(250);
     textAlign(CENTER);
     text("Player 2 wins this round!", width/2, height - 100);
     player1.turn=true;
