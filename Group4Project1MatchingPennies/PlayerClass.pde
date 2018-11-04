@@ -8,7 +8,15 @@ class Player {
     turn = false;
     points = 500;
   }
-
+  
+  void losepoint(int value)
+  {
+    points-=value;
+  }
+  void gainpoint(int value)
+  {
+    points+=value;
+  }
   void setCoin(String value) {
     coin = value;
   }
