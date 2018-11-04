@@ -9,11 +9,11 @@ class Player {
     points = 500;
   }
   
-  void losepoint(int value)
+  void losePoints(int value)
   {
     points-=value;
   }
-  void gainpoint(int value)
+  void gainPoints(int value)
   {
     points+=value;
   }
