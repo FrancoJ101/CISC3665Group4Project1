@@ -10,40 +10,50 @@
  - Joel Franco
  */
 
-color backgroundColor = color(0);  // Initializes backgroundColor to black
-Card[] cards = new Card[9];        // 9 cards to be arranged into a 3x3 grid                       
-boolean gameState = false;  
-Player player1, player2;                             
+color backgroundColor = color(0);             // Initializes backgroundColor to black
+Card[] cards = new Card[9];                   // 9 cards to be arranged into a 3x3 grid                       
+boolean gameState = true, roundState = true;  // Keeps track of both game and round states  
+Player player1, player2;                      // Creates two player objects                             
 
 void setup() {
-  size(800, 600);
+  //size(800, 600);
+  fullScreen();
   background(backgroundColor);
-
-  generateCards();
-  player1 = new Player();
+  player1 = new Player();  
   player2 = new Player();
-
-  textAlign(CENTER);
-  text("Both players have a penny and choose either heads or tails.", width/2, height/8);
-  text("If they match, Player 1 wins. If not, Player 2 wins.", width/2, height/6);
-  textAlign(CENTER);
-  text("Press space to reset", width/2, height - 50);
+  generateCards();
+  printRules();
+  printScore(player1, player2);
+  player1.turn = true;
 }
 
 void draw() {
-  if (gameState == true)
-  {
-    createGrid();
-  } else {                                  // End game result gets printed to screen
+  if (gameState == true) {
+    if (roundState == true) {
+      createGrid();
+      printScore(player1, player2);
+      if (player1.turn == false && player2.turn == false) {
+        roundState = false;
+        if (player1.getPoints() == 0 || player2.getPoints() == 0) {
+          gameState=false;
+        }
+      }
+    } else {
+      roundResult(player1, player2);
+      printScore(player1, player2);
+      textAlign(CENTER);
+      text("Press ENTER to continue", width/2, height - 75);
+    }
+  } else {
+    clear();
     if (player1.points > player2.points)
     {
       textAlign(CENTER);
-      text("Player 1 Wins!", width/2, height/2);
-    }
-    if (player1.points < player2.points)
+      text("Player 1 Wins with " + player1.points + " points!", width/2, height/2);
+    } else if (player1.points < player2.points)
     {
       textAlign(CENTER);
-      text("Player 2 Wins!", width/2, height/2);
+      text("Player 2 Wins with " + player2.points + " points!", width/2, height/2);
     } else
     {
       textAlign(CENTER);
@@ -54,28 +64,39 @@ void draw() {
 
 void keyPressed() {
   if (key == ' ') {
-    reset();
+    gameReset();
+  } else if (key == ENTER)
+  {
+    roundReset();
   }
 }
 
 void mouseClicked() {
   for (int i = 0; i < cards.length; i++) {
     if (dist(mouseX, mouseY, cards[i].x, cards[i].y) < 35)
-      cards[i].setClicked();
+    {
+      if (cards[i].getClicked() == false)
+      {
+        cards[i].setClicked();
+        if (player1.turn == true) {
+          player1.setCoin(cards[i].coin);
+          player1.turn = false;
+          player2.turn = true;
+        } else {
+          player2.setCoin(cards[i].coin);
+          player2.turn = false;
+        }
+      }
+    }
   }
 }
 
-void reset() {
-  //gameState = false;
-  setup();
-}
-
-void generateCards() {
+void generateCards() {  // Generates the cards array with randomly sorted cards
   int num = 0, wildcardCount = 0, headsCount = 0, tailsCount = 0, totalCount = 0;
-  String[] cardValues = {"wildcard","heads","tails"};
-  
+  String[] cardValues = {"wildcard", "heads", "tails"};
+
   while (totalCount < 9) {
-    num = (int) random(0,3);
+    num = (int) random(0, 3);
     if (num == 0) {
       if (wildcardCount < 1) {
         cards[totalCount] = new Card(cardValues[num]);
@@ -96,4 +117,56 @@ void generateCards() {
       }
     }
   }
+}
+
+void printRules() {  // Prints basic rules of the game to screen
+  textAlign(CENTER);
+  text("Both players have a penny and choose either heads or tails.", width/2, height/8);
+  text("If they're both heads, Player 1 wins. If they're both tails, Player 2 wins. Otherwise, it's a draw.", width/2, height/6);
+  textAlign(CENTER);
+  text("Press space to reset", width/2, height - 50);
+}
+
+void printScore(Player p1, Player p2) {
+  textAlign(CENTER);
+  text("Player 1", width/6, height/2);
+  text("Points: " + p1.getPoints(), width/6, height/2 + 25);
+  textAlign(CENTER);
+  text("Player 2", 5 * width/6, height/2);
+  text("Points: " + p2.getPoints(), 5 * width/6, height/2 + 25);
+}
+
+void roundResult (Player p1, Player p2) {
+  if (p1.getCoin() == "heads" && p2.getCoin() == "heads")
+  {
+    p1.setPoints(p1.getPoints() + 250);
+    p2.setPoints(p2.getPoints() - 250);
+    textAlign(CENTER);
+    text("Player 1 wins this round!", width/2, height - 100);
+  } else if (p1.getCoin() == "tails" && p2.getCoin() == "tails")
+  {
+    p1.setPoints(p2.getPoints() + 250);
+    p2.setPoints(p1.getPoints() - 250);
+    textAlign(CENTER);
+    text("Player 2 wins this round!", width/2, height - 100);
+  } else if (p1.getCoin() != " " && p2.getCoin() != " ")
+  {
+    textAlign(CENTER);
+    text("This round ended in a draw!", width/2, height - 100);
+  }
+}
+
+void roundReset() {
+  player1.reset();
+  player2.reset();
+  roundState = true;
+  setup();
+}
+
+void gameReset() {
+  roundReset();
+  player1.setPoints(500);
+  player2.setPoints(500);
+  gameState = true;
+  setup();
 }

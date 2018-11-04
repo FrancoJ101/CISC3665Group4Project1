@@ -1,16 +1,16 @@
 class Player {
-  char coin;      // Player coin face selection; "heads" or "tails" or "wildcard"
+  String coin;      // Player coin face selection; "heads" or "tails" or "wildcard"
   boolean turn;   // Whether player made selection or not
   int points;
 
   Player() {
-    coin = ' ';
+    coin = " ";
     turn = false;
     points = 500;
   }
 
-  void setCoin(char chosen) {
-    coin = chosen;
+  void setCoin(String value) {
+    coin = value;
   }
 
   void setTurn(boolean selected) {
@@ -21,7 +21,7 @@ class Player {
     points = changed;
   }
 
-  char getCoin() {
+  String getCoin() {
     return coin;
   }
 
@@ -31,5 +31,11 @@ class Player {
 
   int getPoints() {
     return points;
+  }
+
+  void reset()
+  {
+    coin = " ";
+    turn = false;
   }
 }

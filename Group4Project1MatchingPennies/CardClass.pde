@@ -14,7 +14,11 @@ class Card {
     cardImageFlipped = loadImage(value + ".png");
     cardImageFlipped.resize(80, 80);
   }
-
+  
+  boolean getClicked() {
+    return clicked;
+  }
+  
   void setClicked() { 
     clicked = true;
   }
