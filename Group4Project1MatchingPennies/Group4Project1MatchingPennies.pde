@@ -16,8 +16,8 @@ boolean gameState = true, roundState = true;  // Keeps track of both game and ro
 Player player1, player2;                      // Creates two player objects                             
 
 void setup() {
-  size(800, 600);
-  //fullScreen();
+  //size(800, 600);
+  fullScreen();
   //background(backgroundColor);
   player1 = new Player();  
   player2 = new Player();
@@ -128,6 +128,14 @@ void printRules() {  // Prints basic rules of the game to screen
   textAlign(CENTER);
   text("Both players have a penny and choose either heads or tails.", width/2, height/8);
   text("If they're both heads, Player 1 wins. If they're both tails, Player 2 wins. Otherwise, it's a draw.", width/2, height/6);
+  if (player1.turn && !player2.turn) {
+    textAlign(CENTER);
+    text("Player1's turn to pick a card", width/6, height/2+50);
+  } 
+  if (player2.turn && !player1.turn) {
+    textAlign(CENTER);
+    text("Player2's turn to pick a card", 5*width/6, height/2+50);
+  }
   textAlign(CENTER);
   text("Press space to reset", width/2, height - 50);
 }
@@ -142,7 +150,7 @@ void printScore(Player p1, Player p2) {
 }
 
 void roundResult (Player p1, Player p2) {
-  if ((p1.getCoin() == "heads" && p2.getCoin() == "heads")||(p1.getCoin() == "tails" && p2.getCoin() == "tails"))
+  if (p1.getCoin() == "heads" && p2.getCoin() == "heads")
   {
     //p1.setPoints(p1.getPoints() + 250);
     //p2.setPoints(p2.getPoints() - 250);
@@ -152,7 +160,7 @@ void roundResult (Player p1, Player p2) {
     //text("Player 1 wins this round!", width/2, height - 100);
     player1.turn=true;
     roundState = true;
-  } else if ((p1.getCoin() == "heads" && p2.getCoin() == "tails")||(p1.getCoin() == "tails" && p2.getCoin() == "heads"))
+  } else if (p1.getCoin() == "tails" && p2.getCoin() == "tails")
   {
     //p1.setPoints(p2.getPoints() + 250);
     //p2.setPoints(p1.getPoints() - 250);
