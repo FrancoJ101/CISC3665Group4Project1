@@ -1,4 +1,4 @@
-/*  //<>//
+/* 
  CISC 3665 (Game Design, Fall '18) - Project 1
  Group 4
  Game: Matching Pennies
@@ -13,11 +13,12 @@
 color backgroundColor = color(0);             // Initializes backgroundColor to black
 Card[] cards = new Card[9];                   // 9 cards to be arranged into a 3x3 grid                       
 boolean gameState = true, roundState = true;  // Keeps track of both game and round states  
-Player player1, player2;                      // Creates two player objects                             
+Player player1, player2;    // Creates two player objects                             
+int numberOfCardSelected=0;
 
 void setup() {
-  //size(800, 600);
-  fullScreen();
+  size(800, 600);
+  //fullScreen();
   //background(backgroundColor);
   player1 = new Player();  
   player2 = new Player();
@@ -28,6 +29,7 @@ void setup() {
 }
 
 void draw() {
+  println(numberOfCardSelected);
   background(backgroundColor);
   printRules();
   if (gameState == true) {
@@ -77,25 +79,27 @@ void keyPressed() {
 }
 
 void mouseClicked() {
-  for (int i = 0; i < cards.length; i++) {
-    if (dist(mouseX, mouseY, cards[i].x, cards[i].y) < 35)
-    {
-      if (cards[i].getClicked() == false)
-      {
-        cards[i].setClicked();
-        if (player1.turn == true) {
-          player1.setCoin(cards[i].coin);
-          player1.turn = false;
-          player2.turn = true;
-        } else {
-          player2.setCoin(cards[i].coin);
-          player2.turn = false;
+  if (numberOfCardSelected<2) {
+    for (int i = 0; i < cards.length; i++) {
+      if (dist(mouseX, mouseY, cards[i].x, cards[i].y) < 35)
+      { 
+        if (cards[i].getClicked() == false)
+        {
+          cards[i].setClicked();
+          if (player1.turn == true) {
+            player1.setCoin(cards[i].coin);
+            player1.turn = false;
+            player2.turn = true;
+          } else {
+            player2.setCoin(cards[i].coin);
+            player2.turn = false;
+          }
+          numberOfCardSelected++;
         }
       }
     }
   }
 }
-
 void generateCards() {  // Generates the cards array with randomly sorted cards
   int num = 0, wildcardCount = 0, headsCount = 0, tailsCount = 0, totalCount = 0;
   String[] cardValues = {"wildcard", "heads", "tails"};
@@ -137,7 +141,7 @@ void printRules() {  // Prints basic rules of the game to screen
     text("Player2's turn to pick a card", 5*width/6, height/2+50);
   }
   textAlign(CENTER);
-  text("Press enter to Shuffle card.", width/2, height-75);
+  text("After both players pick a card, press enter to Shuffle card.", width/2, height-75);
   text("Press space to reset", width/2, height - 50);
 }
 
@@ -151,6 +155,7 @@ void printScore(Player p1, Player p2) {
 }
 
 void roundResult (Player p1, Player p2) {
+
   if (p1.getCoin() == "heads" && p2.getCoin() == "heads")
   {
     //p1.setPoints(p1.getPoints() + 250);
@@ -181,8 +186,11 @@ void roundResult (Player p1, Player p2) {
 }
 
 void roundReset() {
+  if(numberOfCardSelected==2){
   roundState = true;
   generateCards();
+  numberOfCardSelected=0;
+}
   //setup();
 }
 
