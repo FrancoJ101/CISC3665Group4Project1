@@ -23,6 +23,10 @@ class Card {
     clicked = true;
   }
 
+  String getCoin() {
+    return coin;
+  }
+
   PImage getImage() {
     if (clicked == false) {
       return cardImage;

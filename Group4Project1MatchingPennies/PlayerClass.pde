@@ -9,27 +9,30 @@ class Player {
     points = 500;
   }
 
-  void losePoints(int value)
-  {
+  void losePoints(int value) {
     points-=value;
   }
-  void gainPoints(int value)
-  {
+  
+  void gainPoints(int value) {
     points+=value;
   }
+  
   void setCoin(String value) {
     coin = value;
   }
+  
   void setTurn(boolean selected) {
     turn = selected;
   }
 
   void setPoints(int changed) {
     points = changed;
-  }
-  void setWager(int value){
+  
+}
+  void setWager(int value) {
     wager = value;
   }
+  
   String getCoin() {
     return coin;
   }
@@ -45,6 +48,7 @@ class Player {
   int getWager(){
     return wager;
   }
+  
   void reset()
   {
     coin = " ";
