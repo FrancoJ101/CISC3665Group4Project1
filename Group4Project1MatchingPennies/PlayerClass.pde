@@ -2,7 +2,7 @@ class Player {
   String coin;      // Player coin face selection; "heads" or "tails" or "wildcard"
   boolean turn;   // Whether player made selection or not
   int points;
-
+  int wager;
   Player() {
     coin = " ";
     turn = false;
@@ -20,7 +20,6 @@ class Player {
   void setCoin(String value) {
     coin = value;
   }
-
   void setTurn(boolean selected) {
     turn = selected;
   }
@@ -28,7 +27,9 @@ class Player {
   void setPoints(int changed) {
     points = changed;
   }
-
+  void setWager(int value){
+    wager = value;
+  }
   String getCoin() {
     return coin;
   }
@@ -41,6 +42,9 @@ class Player {
     return points;
   }
 
+  int getWager(){
+    return wager;
+  }
   void reset()
   {
     coin = " ";
