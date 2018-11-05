@@ -128,9 +128,11 @@ void generateCards() {  // Generates the cards array with randomly sorted cards
 }
 
 void printRules() {  // Prints basic rules of the game to screen
+  textSize(15);
   textAlign(CENTER);
-  text("Both players have a penny and choose either heads or tails.", width/2, height/8);
-  text("If they're both heads, Player 1 wins. If they're both tails, Player 2 wins. Otherwise, it's a draw.", width/2, height/6);
+  text("Both players choose a card that with a value of heads, tails or wildcard.", width/2, height/8);
+  text("If they match, Player 1 wins 250 points from player 2.", width/2, height/6);
+  text("If they don't match, Player 2 wins 250 points from player 1. Otherwise, it's a wildcard.", width/2, height/5);
   if (player1.turn && !player2.turn) {
     textAlign(CENTER);
     text("Player1's turn to pick a card", width/6, height/2+50);
@@ -155,7 +157,7 @@ void printScore(Player p1, Player p2) {
 
 void roundResult (Player p1, Player p2) {
 
-  if (p1.getCoin() == "heads" && p2.getCoin() == "heads")
+  if ((p1.getCoin() == "heads" && p2.getCoin() == "heads")||(p1.getCoin() == "tails" && p2.getCoin() == "tails"))
   {
     //p1.setPoints(p1.getPoints() + 250);
     //p2.setPoints(p2.getPoints() - 250);
@@ -165,7 +167,7 @@ void roundResult (Player p1, Player p2) {
     //text("Player 1 wins this round!", width/2, height - 100);
     player1.turn=true;
     roundState = true;
-  } else if (p1.getCoin() == "tails" && p2.getCoin() == "tails")
+  } else if ((p1.getCoin() == "heads" && p2.getCoin() == "tails")|| (p1.getCoin() == "tails" && p2.getCoin() == "heads"))
   {
     //p1.setPoints(p2.getPoints() + 250);
     //p2.setPoints(p1.getPoints() - 250);
