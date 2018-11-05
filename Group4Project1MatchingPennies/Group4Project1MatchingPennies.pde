@@ -17,8 +17,8 @@ Player player1, player2;                      // Creates two player objects
 String playerBet = new String("");
 
 void setup() {
-  //size(800, 600);
-  fullScreen();
+  size(1400, 1000);
+  //fullScreen();
   //background(backgroundColor);
   textSize(20);
   player1 = new Player();  
@@ -48,7 +48,7 @@ void draw() {
     } else {
       roundResult(player1, player2);
       printScore(player1, player2);
-      
+
       //textAlign(CENTER);
       //text("Press ENTER to continue", width/2, height - 75);
     }
@@ -75,13 +75,12 @@ void keyPressed() {
   } else if (key == ENTER) {
     roundReset();
   }
-  
   if (key == '0' || key == '1' || key == '2' || key == '3' || key == '4' ||
-      key == '5' || key == '6' || key == '7' || key == '8' || key == '9') {
+    key == '5' || key == '6' || key == '7' || key == '8' || key == '9') {
     playerBet = playerBet + key;
-  } else if(key == BACKSPACE) {
+  } else if (key == BACKSPACE) {
     if (playerBet.length() > 0) {
-       playerBet=playerBet.substring(0, playerBet.length()-1);
+      playerBet=playerBet.substring(0, playerBet.length()-1);
     }
   }
 }
@@ -212,7 +211,7 @@ void enterBet() {
       if (checkBetInput() == true) {
         player2.setWager(Integer.parseInt(playerBet));
       } else if (checkBetInput() == false) {
-        player2.setWager(0); 
+        player2.setWager(0);
       }
       text(playerBet, 5 * width/6, height/2+250);
     }
@@ -226,15 +225,15 @@ boolean checkBetInput() {
     text("Enter a valid bet.", width/2, height/2+255);   // cannot take a number higher than 2bill or null input
     return false;
   } else if (playerBet.length() <= 6 && playerBet.length() > 0) { //Needed to re-check lengths for possible crash with parseInt
-      if (Integer.parseInt(playerBet) > player2.getPoints() || Integer.parseInt(playerBet) > player1.getPoints()) {
-        text(" Players don't have enough points for this bet. ", width/2, height/2+225);
-        return false;
-      } else if(Integer.parseInt(playerBet) < 50) {
-        text(" You must bet a minimum of 50 points. ", width/2, height/2+225);
-        return false;
-      } else {
-        return true;
-      }
+    if (Integer.parseInt(playerBet) > player2.getPoints() || Integer.parseInt(playerBet) > player1.getPoints()) {
+      text(" Players don't have enough points for this bet. ", width/2, height/2+225);
+      return false;
+    } else if (Integer.parseInt(playerBet) < 50) {
+      text(" You must bet a minimum of 50 points. ", width/2, height/2+225);
+      return false;
+    } else {
+      return true;
+    }
   } else { 
     return true;
   }
