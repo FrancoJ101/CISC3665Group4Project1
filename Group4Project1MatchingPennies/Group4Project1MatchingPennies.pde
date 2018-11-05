@@ -1,4 +1,4 @@
-/*  //<>//
+/* 
  CISC 3665 (Game Design, Fall '18) - Project 1
  Group 4
  Game: Matching Pennies
@@ -20,6 +20,7 @@ void setup() {
   //size(800, 600);
   fullScreen();
   //background(backgroundColor);
+  textSize(20);
   player1 = new Player();  
   player2 = new Player();
   generateCards();
@@ -201,12 +202,12 @@ void roundResult (Player p1, Player p2) {
 
 void enterBet(){
   if(gameState == true ){
-    if(player1.points < 50){ 
+    if(player1.points <= 50){ 
       text(" Player 1 must bet all points. ", width/6, height/2+220);
       player2.setWager(player1.getPoints());
       player1.setWager(player1.getPoints());
     }
-    else if(player2.points < 50){
+    else if(player2.points <= 50){
       text(" Player 2 must bet all points. ", 5 * width/6, height/2+220);
       player2.setWager(player2.getPoints());
       player1.setWager(player2.getPoints());
