@@ -55,21 +55,25 @@ void draw() {
     clear();
     if (player1.getPoints() > player2.getPoints())
     {
-      fill(255,0,0);
+      fill(255, 0, 0);
       text("Player 1 wins with " + player1.getPoints() + " points!", width/2, height/2);
     } else if (player1.getPoints() < player2.getPoints()) {
-      fill(0,0,255);
+      fill(0, 0, 255);
       text("Player 2 wins with " + player2.getPoints() + " points!", width/2, height/2);
     } else {
-      fill(255,0,255);
+      fill(255, 0, 255);
       text("It's a draw!", width/2, height/2);
     }
+    fill(255);
+    text("Press SPACE to reset game", width/2, height - 50);
   }
 }
 
 void keyPressed() {
   if (key == ' ') {
-    gameReset();
+    if (gameState == false) {
+      gameReset();
+    }
   } else if (key == ENTER) {
     if (roundState == false) {  // Allows advancement to next round only if current round is over
       roundReset();
@@ -108,12 +112,12 @@ void mouseClicked() {
 void cardSelected() {
   if (player1.getCoordinateX() != 0) {
     noFill();
-    stroke(255,0,0);
+    stroke(255, 0, 0);
     rect(player1.getCoordinateX() - 30, player1.getCoordinateY() - 40, 60, 80);
   }
   if (player2.getCoordinateX() != 0) {
     noFill();
-    stroke(0,0,255);
+    stroke(0, 0, 255);
     rect(player2.getCoordinateX() - 30, player2.getCoordinateY() - 40, 60, 80);
   }
 }
@@ -154,25 +158,26 @@ void printRules() {  // Prints the basic rules of the game to screen
   textSize(18);
   text("Both players must place a bet before picking a card.", width/2, height/8);
   text("If both cards match, Player 1 wins. Otherwise, Player 2 wins. In the chance both cards are Wildcards, a mini-game begins.", width/2, height/6);
-  //text("Press Enter to shuffle cards.", width/2, height-75);
-  fill(255);
-  text("Press Space to reset game", width/2, height - 50);
   // Indicates which player's turn it is
   if (player1.getTurn() && !player2.getTurn()) {
-    fill(255,0,0);
+    fill(255, 0, 0);
     text("Player 1's turn to pick a card", width/6, height/2+50);
   } else {
-    fill(0,0,255);
+    fill(0, 0, 255);
     text("Player 2's turn to pick a card", 5*width/6, height/2+50);
   }
 }
 
 void printScore(Player p1, Player p2) {  // Prints the current score for each player
-  fill(255,0,0);
+  fill(255, 0, 0);
+  textSize(20);
   text("Player 1", width/6, height/2);
+  textSize(18);
   text("Points: " + p1.getPoints(), width/6, height/2 + 25);
-  fill(0,0,255);
+  fill(0, 0, 255);
+  textSize(20);
   text("Player 2", 5 * width/6, height/2);
+  textSize(18);
   text("Points: " + p2.getPoints(), 5 * width/6, height/2 + 25);
 }
 
@@ -181,46 +186,43 @@ void roundResult (Player p1, Player p2) {
   text("Press ENTER to continue", width/2, height-75);
   if (roundResultState == true) {
     if ( (p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails") ) {
-      p1.gainPoints(player1.getWager());
-      p2.losePoints(player1.getWager());
+      p1.gainPoints();
+      p2.losePoints();
       roundResultState = false;
-      //roundReset();
     } else if ( (p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads") ) {
-      p1.losePoints(player2.getWager());
-      p2.gainPoints(player2.getWager());  
+      p1.losePoints();
+      p2.gainPoints();  
       roundResultState = false;
-      //roundReset();
     } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
-      //roundReset();
       roundResultState = false;
     }
   }
-  
+
   if ((p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails")) {
-    fill(255,0,0);
+    fill(255, 0, 0);
     text("Player 1 wins the round!", width/2, height-100);
   } else if ((p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads")) {
-    fill(0,0,255);
+    fill(0, 0, 255);
     text("Player 2 wins the round!", width/2, height-100);
   } else {
-    fill(255,0,255);
+    fill(255, 0, 255);
     text("It's a draw!", width/2, height-100);
   }
 }
 
 void enterBet() {
   if (player1.getPoints() <= 50) {
-    fill(255,0,0);
+    fill(255, 0, 0);
     text(" Player 1 must bet all points. ", width/6, height/2+220);
     player2.setWager(player1.getPoints());
     player1.setWager(player1.getPoints());
   } else if (player2.getPoints() <= 50) {
-    fill(0,0,255);
+    fill(0, 0, 255);
     text(" Player 2 must bet all points. ", 5 * width/6, height/2+220);
     player2.setWager(player2.getPoints());
     player1.setWager(player2.getPoints());
   } else if (player1.getTurn() == true) {
-    fill(255,0,0);
+    fill(255, 0, 0);
     text(" Player 1, make your bet. ", width/6, height/2+200);
     if (checkBetInput() == true) {
       player1.setWager(Integer.parseInt(playerBet));
@@ -229,7 +231,7 @@ void enterBet() {
     }
     text(playerBet, width/6, height/2+250);
   } else if (player1.getTurn() == false) {
-    fill(0,0,255);
+    fill(0, 0, 255);
     text(" Player 2, make your bet. ", 5 * width/6, height/2+200);
     if (player2turnCheck == 0) {
       playerBet = "";
@@ -242,16 +244,16 @@ void enterBet() {
     }
     text(playerBet, 5 * width/6, height/2+250);
   }
-  fill(255,0,0);
-  text("Player 1 Bet: " + player1.getWager(), width/6, height/2+275);
-  fill(0,0,255);
-  text("Player 2 Bet: " + player2.getWager(), 5 * width/6, height/2+275);
+  fill(255, 0, 0);
+  text("Bet amount: " + player1.getWager(), width/6, height/2+275);
+  fill(0, 0, 255);
+  text("Bet amount: " + player2.getWager(), 5 * width/6, height/2+275);
 }
 
 boolean checkBetInput() {  // Checks whether user inputted proper betting amount
   if (playerBet.length() > 6 || playerBet.length() <= 0) { // Limited the bets like this because Integer.parseInt
     fill(255);
-    text("Enter a valid bet.", width/2, 13*height/16);   // Number cannot be greater than 2 billion or be a null input
+    text("Enter a valid bet", width/2, 13*height/16);   // Number cannot be greater than 2 billion or be a null input
     return false;
   } else if (playerBet.length() <= 6 && playerBet.length() > 0) { //Needed to re-check lengths for possible crash with parseInt
     if (Integer.parseInt(playerBet) > player2.getPoints() || Integer.parseInt(playerBet) > player1.getPoints()) {
