@@ -256,8 +256,8 @@ boolean checkBetInput() {  // Checks whether user inputted proper betting amount
     text("Enter a valid bet", width/2, 13*height/16);   // Number cannot be greater than 2 billion or be a null input
     return false;
   } else if (playerBet.length() <= 6 && playerBet.length() > 0) { //Needed to re-check lengths for possible crash with parseInt
-    if (Integer.parseInt(playerBet) > player2.getPoints() || Integer.parseInt(playerBet) > player1.getPoints()) {
-      text(" Players don't have enough points for this bet. ", width/2, 13*height/16);
+    if ((Integer.parseInt(playerBet) > player2.getPoints() && player2.getTurn() && !player1.getTurn()) || (Integer.parseInt(playerBet) > player1.getPoints() && player1.getTurn() && !player2.getTurn())) {
+      text("  You do not have enough points for this bet. ", width/2, 13*height/16);
       return false;
     } else if (Integer.parseInt(playerBet) < 50) {
       text(" You must bet a minimum of 50 points. ", width/2, 13*height/16);
