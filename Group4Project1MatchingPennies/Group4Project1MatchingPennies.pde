@@ -221,7 +221,9 @@ void enterBet() {
     text(" Player 2 must bet all points. ", 5 * width/6, height/2+220);
     player2.setWager(player2.getPoints());
     player1.setWager(player2.getPoints());
-  } else if (player1.getTurn() == true) {
+  }  
+  
+  if (player1.getTurn() == true) {
     fill(255, 0, 0);
     text(" Player 1, make your bet. ", width/6, height/2+200);
     if (checkBetInput() == true) {
