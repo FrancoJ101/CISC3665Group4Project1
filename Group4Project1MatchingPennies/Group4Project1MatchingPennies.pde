@@ -19,8 +19,7 @@ Card[] cards = new Card[9];                                               // 9 c
 boolean pregameState, // Keeps track of game, round and roundResult states                             
   gameState = false, 
   roundState = false, 
-  roundResultState = false, 
-  musicToggle = true;    
+  roundResultState = false;    
 Player player1, player2;                                                  // Initializes two player objects    
 String playerBet = new String("");                                        // Initializes an empty string to store playerBet amount
 int player2turnCheck = 0;

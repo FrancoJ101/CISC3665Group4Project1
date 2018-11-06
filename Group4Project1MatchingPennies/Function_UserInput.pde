@@ -16,11 +16,10 @@ void keyPressed() {
     }
   } else if (key == 'm' || key == 'M') {
     if (pregameState) {
-      if (musicToggle) {
+      if (music.isPlaying()) {
         music.pause();
       } else {
-        //music.pause();
-        music.loop(1, 0.1);
+        music.play();
       }
     }
   }
