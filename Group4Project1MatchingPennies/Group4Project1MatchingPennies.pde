@@ -210,7 +210,7 @@ void roundResult (Player p1, Player p2) {
     } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
       roundResultState = false;
     }
-    chaching.play();
+    //chaching.play();
   }
 
   if ((p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails")) {
