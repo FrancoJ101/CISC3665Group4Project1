@@ -1,3 +1,4 @@
+/* @pjs preload="default.png, heads.png, tails.png, wildcard.png"; */
 class Card {
   String coin;
   boolean clicked;
