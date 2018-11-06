@@ -9,6 +9,8 @@ Improved version of original game: https://www.openprocessing.org/sketch/605073
 
 Open Processing Link for final version: https://www.openprocessing.org/sketch/622216
 
+Google Docs for the project: https://docs.google.com/document/d/1YQQet3zwv6L78opNYZV6jEZPtTAthXQq14Vr0ea3i6k/edit
+
 ## Instructions 
 
 You have been randomly divided into eight groups (five students per group) according to the attached spreadsheet.
