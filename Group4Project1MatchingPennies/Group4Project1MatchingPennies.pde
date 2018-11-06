@@ -1,7 +1,3 @@
-/* @pjs preload="jazz.mp3, chaching.mp3"; */
-import processing.sound.*;
-SoundFile music, flip, chaching;
-
 /* 
  CISC 3665 (Game Design, Fall '18) - Project 1
  Group 4
@@ -20,21 +16,17 @@ boolean gameState = true, roundState = true, roundResultState = false;    // Kee
 Player player1, player2;                                                  // Initializes two player objects    
 String playerBet = new String("");                                        // Initializes an empty string to store playerBet amount
 int player2turnCheck = 0;
+int OFFSET = 48;
 
 void setup() {
   //fullScreen();
-  size(displayWidth, displayHeight);
+  size(2000, 1000);
   background(backgroundColor);
   textSize(18);
   player1 = new Player();
   player2 = new Player();
   generateCards();
   player1.setTurn(true);
-  
-  music = new SoundFile(this, "jazz.mp3");
-  flip = new SoundFile(this, "flip.mp3");
-  chaching = new SoundFile(this, "chaching.mp3");
-  music.loop(1, 0.1);
 }
 
 void draw() {
@@ -89,16 +81,15 @@ void keyPressed() {
     }
   } else if (key == '0' || key == '1' || key == '2' || key == '3' || key == '4' ||
     key == '5' || key == '6' || key == '7' || key == '8' || key == '9') {
-    playerBet = playerBet + key;
-  } else if (key == BACKSPACE) {
+    playerBet += (key - 48);
+  } else if (key == 45) {
     if (playerBet.length() > 0) {
-      playerBet=playerBet.substring(0, playerBet.length()-1);
+      playerBet = playerBet.substring(0, playerBet.length()-1);
     }
   }
 }
 
 void mouseClicked() {
-  flip.play();
   for (int i = 0; i < cards.length; i++) {  // Assigns a card's value to the player who clicks on it
     if (dist(mouseX, mouseY, cards[i].x, cards[i].y) < 35) {
       if (cards[i].getClicked() == false) {
@@ -164,10 +155,12 @@ void printRules() {  // Prints the basic rules of the game to screen
   textAlign(CENTER);
   textSize(22);
   fill(255);
-  text("Matching Pennies", width/2, height / 14);
+  text("Matching Pennies", width/2, height/12);
   textSize(18);
-  text("Both players must place a bet before picking a card.", width/2, height/8);
-  text("If both cards match, Player 1 wins. Otherwise, Player 2 wins. In the chance both cards are Wildcards, a mini-game begins.", width/2, height/6);
+  text("There are three types of cards: Heads, Tails, and Wildcard", width/2, height/7);
+  text("Both players must place a bet before picking a card.", width/2, height/6);
+  text("If both cards match, Player 1 wins. If both cards do not match, Player 2 wins. If Wildcard has been selected by any player, the round ends in a draw.", width/2, height/5.25);  
+  text("To pick a card on your turn, first type in your bet using '0' through '9'. Use '-' to change your bet. Select a card after you have decided on your bet.", width/2, height/4.75);
   // Indicates which player's turn it is
   if (player1.getTurn() && !player2.getTurn()) {
     fill(255, 0, 0);
@@ -206,7 +199,6 @@ void roundResult (Player p1, Player p2) {
     } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
       roundResultState = false;
     }
-    chaching.play();
   }
 
   if ((p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails")) {
@@ -238,7 +230,7 @@ void enterBet() {
     fill(255, 0, 0);
     text(" Player 1, make your bet. ", width/6, height/2+200);
     if (checkBetInput() == true) {
-      player1.setWager(Integer.parseInt(playerBet));
+      player1.setWager(parseInt(playerBet));
     } else if (checkBetInput() == false) {
       player1.setWager(0);
     }
@@ -251,7 +243,7 @@ void enterBet() {
       player2turnCheck++;
     }
     if (checkBetInput() == true) {
-      player2.setWager(Integer.parseInt(playerBet));
+      player2.setWager(parseInt(playerBet));
     } else if (checkBetInput() == false) {
       player2.setWager(0);
     }
@@ -264,15 +256,15 @@ void enterBet() {
 }
 
 boolean checkBetInput() {  // Checks whether user inputted proper betting amount
-  if (playerBet.length() > 6 || playerBet.length() <= 0) { // Limited the bets like this because Integer.parseInt
+  if (playerBet.length() > 6 || playerBet.length() <= 0) { // Limited the bets like this because parseInt
     fill(255);
     text("Enter a valid bet", width/2, 13*height/16);   // Number cannot be greater than 2 billion or be a null input
     return false;
   } else if (playerBet.length() <= 6 && playerBet.length() > 0) { //Needed to re-check lengths for possible crash with parseInt
-    if ((Integer.parseInt(playerBet) > player2.getPoints() && player2.getTurn() && !player1.getTurn()) || (Integer.parseInt(playerBet) > player1.getPoints() && player1.getTurn() && !player2.getTurn())) {
+    if ((parseInt(playerBet) > player2.getPoints() && player2.getTurn() && !player1.getTurn()) || (parseInt(playerBet) > player1.getPoints() && player1.getTurn() && !player2.getTurn())) {
       text("  You do not have enough points for this bet. ", width/2, 13*height/16);
       return false;
-    } else if (Integer.parseInt(playerBet) < 50) {
+    } else if (parseInt(playerBet) < 50) {
       text(" You must bet a minimum of 50 points. ", width/2, 13*height/16);
       return false;
     } else {
@@ -301,6 +293,5 @@ void gameReset() {
   player1.setPoints(500);
   player2.setPoints(500);
   gameState = true;
-  music.stop();
   setup();
 }
