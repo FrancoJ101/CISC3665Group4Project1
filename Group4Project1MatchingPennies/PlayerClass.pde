@@ -10,12 +10,12 @@ class Player {
     points = 500;
   }
 
-  void losePoints(int value) {
-    points-=value;
+  void losePoints() {
+    points-=wager;
   }
 
-  void gainPoints(int value) {
-    points+=value;
+  void gainPoints() {
+    points+=wager;
   }
 
   void setCoin(String value) {
