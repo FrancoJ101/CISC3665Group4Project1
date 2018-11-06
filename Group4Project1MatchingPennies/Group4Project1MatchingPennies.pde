@@ -10,11 +10,11 @@
  - Joel Franco
  */
 
-color backgroundColor = color(0);             // Initializes backgroundColor to black
-Card[] cards = new Card[9];                   // 9 cards to be arranged into a 3x3 grid                       
-boolean gameState = true, roundState = true;  // Keeps track of both game and round states  
-Player player1, player2;                      // Initializes two player objects    
-String playerBet = new String("");            // Initializes an empty string to store playerBet amount
+color backgroundColor = color(0);                                         // Initializes backgroundColor to black
+Card[] cards = new Card[9];                                               // 9 cards to be arranged into a 3x3 grid                       
+boolean gameState = true, roundState = true, roundResultState = false;    // Keeps track of game, round and roundResult states  
+Player player1, player2;                                                  // Initializes two player objects    
+String playerBet = new String("");                                        // Initializes an empty string to store playerBet amount
 int player2turnCheck = 0;
 
 void setup() {
@@ -31,24 +31,25 @@ void setup() {
 void draw() {
   background(backgroundColor);
   if (gameState == true) {
+    createGrid();
     printRules();
+    printScore(player1, player2);
     if (player1.getPoints() == 0 || player2.getPoints() == 0) {
       gameState=false;
     }
     if (roundState == true) {
-      createGrid();
       printScore(player1, player2);
       enterBet();
       cardSelected();
       if (player1.getTurn() == false && player2.getTurn() == false) {
         roundState = false;
+        roundResultState = true;
         if (player1.getPoints() == 0 || player2.getPoints() == 0) {
           gameState=false;
         }
       }
     } else {
       roundResult(player1, player2);
-      printScore(player1, player2);
     }
   } else {
     clear();
@@ -168,16 +169,21 @@ void printScore(Player p1, Player p2) {  // Prints the current score for each pl
 
 void roundResult (Player p1, Player p2) {
   text("Press ENTER to continue", width/2, height-75);
-  if ( (p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails") ) {
-    p1.gainPoints(player1.getWager());
-    p2.losePoints(player1.getWager());
-    roundReset();
-  } else if ( (p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads") ) {
-    p1.losePoints(player2.getWager());
-    p2.gainPoints(player2.getWager());
-    roundReset();
-  } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
-    roundReset();
+  if (roundResultState == true) {
+    if ( (p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails") ) {
+      p1.gainPoints(player1.getWager());
+      p2.losePoints(player1.getWager());
+      roundResultState = false;
+      //roundReset();
+    } else if ( (p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads") ) {
+      p1.losePoints(player2.getWager());
+      p2.gainPoints(player2.getWager());
+      roundResultState = false;
+      //roundReset();
+    } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
+      //roundReset();
+      roundResultState = false;
+    }
   }
 }
 
