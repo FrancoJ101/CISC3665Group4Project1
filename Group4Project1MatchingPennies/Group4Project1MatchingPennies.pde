@@ -34,13 +34,13 @@ void draw() {
     createGrid();
     printRules();
     printScore(player1, player2);
+    cardSelected();
     if (player1.getPoints() == 0 || player2.getPoints() == 0) {
       gameState=false;
     }
     if (roundState == true) {
       printScore(player1, player2);
       enterBet();
-      cardSelected();
       if (player1.getTurn() == false && player2.getTurn() == false) {
         roundState = false;
         roundResultState = true;
@@ -105,12 +105,12 @@ void mouseClicked() {
 void cardSelected() {
   if (player1.getCoordinateX() != 0) {
     noFill();
-    stroke(#FF0000);
+    stroke(255,0,0);
     rect(player1.getCoordinateX() - 30, player1.getCoordinateY() - 40, 60, 80);
   }
   if (player2.getCoordinateX() != 0) {
     noFill();
-    stroke(#FF0000);
+    stroke(0,0,255);
     rect(player2.getCoordinateX() - 30, player2.getCoordinateY() - 40, 60, 80);
   }
 }
