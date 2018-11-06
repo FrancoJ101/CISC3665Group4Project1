@@ -1,3 +1,7 @@
+/* @pjs preload="jazz.mp3, chaching.mp3"; */
+import processing.sound.*;
+SoundFile music, flip, chaching;
+
 /* 
  CISC 3665 (Game Design, Fall '18) - Project 1
  Group 4
@@ -19,13 +23,18 @@ int player2turnCheck = 0;
 
 void setup() {
   //fullScreen();
-  size(1400, 1000);
+  size(displayWidth, displayHeight);
   background(backgroundColor);
   textSize(18);
   player1 = new Player();
   player2 = new Player();
   generateCards();
   player1.setTurn(true);
+  
+  music = new SoundFile(this, "jazz.mp3");
+  flip = new SoundFile(this, "flip.mp3");
+  chaching = new SoundFile(this, "chaching.mp3");
+  music.loop(1, 0.1);
 }
 
 void draw() {
@@ -89,6 +98,7 @@ void keyPressed() {
 }
 
 void mouseClicked() {
+  flip.play();
   for (int i = 0; i < cards.length; i++) {  // Assigns a card's value to the player who clicks on it
     if (dist(mouseX, mouseY, cards[i].x, cards[i].y) < 35) {
       if (cards[i].getClicked() == false) {
@@ -196,6 +206,7 @@ void roundResult (Player p1, Player p2) {
     } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
       roundResultState = false;
     }
+    chaching.play();
   }
 
   if ((p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails")) {
@@ -290,5 +301,6 @@ void gameReset() {
   player1.setPoints(500);
   player2.setPoints(500);
   gameState = true;
+  music.stop();
   setup();
 }
