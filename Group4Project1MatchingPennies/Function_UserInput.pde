@@ -15,13 +15,13 @@ void keyPressed() {
       playerBet=playerBet.substring(0, playerBet.length()-1);
     }
   } else if (key == 'm' || key == 'M') {
-    //  if (musicToggle) {
-    //    music.pause();
-    //  } else {
-    //    //music.pause();
-    //    music.loop(1, 0.1);
-    //  }
-    //}
+    if (pregameState) {
+      if (music.isPlaying()) {
+        music.pause();
+      } else {
+        music.play();
+      }
+    }
   }
 }
 

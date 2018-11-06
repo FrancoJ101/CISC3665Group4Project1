@@ -1,4 +1,4 @@
-/* @pjs preload="jazz.mp3, chaching.mp3"; */
+
 import processing.sound.*;
 SoundFile music, flip, chaching;
 
@@ -14,6 +14,16 @@ SoundFile music, flip, chaching;
  - Joel Franco
  */
 
+color backgroundColor = color(0);                                         // Initializes backgroundColor to black
+Card[] cards = new Card[9];                                               // 9 cards to be arranged into a 3x3 grid                       
+boolean pregameState, // Keeps track of game, round and roundResult states                             
+  gameState = false, 
+  roundState = false, 
+  roundResultState = false, 
+  musicToggle = true;    
+Player player1, player2;                                                  // Initializes two player objects    
+String playerBet = new String("");                                        // Initializes an empty string to store playerBet amount
+int player2turnCheck = 0;
 Card[] cards = new Card[9];  // 9 cards to be arranged into a 3x3 grid                       
 boolean menuState, gameState, roundState, roundResultState;  // Keeps track of menu, game, round and roundResult states
 Player player1, player2;  // Initializes two player objects    
