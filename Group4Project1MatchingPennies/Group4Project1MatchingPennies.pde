@@ -177,6 +177,7 @@ void printScore(Player p1, Player p2) {  // Prints the current score for each pl
 }
 
 void roundResult (Player p1, Player p2) {
+  fill(255);
   text("Press ENTER to continue", width/2, height-75);
   if (roundResultState == true) {
     if ( (p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails") ) {
