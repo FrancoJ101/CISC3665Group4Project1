@@ -60,6 +60,7 @@ void draw() {
     }
   }
   enterBet();
+  cardSelected();
 }
 
 void keyPressed() {
@@ -84,16 +85,31 @@ void mouseClicked() {
         if (player1.getTurn() == true && player1.getWager() != 0) { // Bets are set to 0 when there's an invalid bet
           player1.setCoin(cards[i].getCoin()); 
           player1.setTurn(false);
+          player1.setCoordinates(cards[i].x,cards[i].y);
           player2.setTurn(true);
           cards[i].setClicked();
         } else if (player2.getTurn() == true && player2.getWager() != 0) {
           player2.setCoin(cards[i].getCoin());
           player2.setTurn(false);
+          player2.setCoordinates(cards[i].x,cards[i].y);
           cards[i].setClicked();
         }
       }
     }
   }
+}
+
+void cardSelected(){
+    if(player1.getCoordinateX() != 0){
+      noFill();
+      stroke(#FF0000);
+      rect(player1.getCoordinateX() - 30 ,player1.getCoordinateY() - 40 ,60,80);
+    }
+    if(player2.getCoordinateX() != 0){
+      noFill();
+      stroke(#FF0000);
+      rect(player2.getCoordinateX() - 30 ,player2.getCoordinateY() - 40 ,60,80);
+    }
 }
 
 void generateCards() {  // Generates the cards array with randomly sorted cards
@@ -228,6 +244,8 @@ void roundReset() {
   playerBet = "";
   player1.setTurn(true);
   player2turnCheck = 0;
+  player1.setCoordinates(0,0);
+  player2.setCoordinates(0,0);
   //setup();
 }
 
