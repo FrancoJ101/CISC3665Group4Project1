@@ -187,13 +187,24 @@ void roundResult (Player p1, Player p2) {
       //roundReset();
     } else if ( (p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads") ) {
       p1.losePoints(player2.getWager());
-      p2.gainPoints(player2.getWager());
+      p2.gainPoints(player2.getWager());  
       roundResultState = false;
       //roundReset();
     } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
       //roundReset();
       roundResultState = false;
     }
+  }
+  
+  if ((p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails")) {
+    fill(255,0,0);
+    text("Player 1 wins the round!", width/2, height-100);
+  } else if ((p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads")) {
+    fill(0,0,255);
+    text("Player 2 wins the round!", width/2, height-100);
+  } else {
+    fill(255,0,255);
+    text("It's a draw!", width/2, height-100);
   }
 }
 
