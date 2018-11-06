@@ -14,37 +14,37 @@ SoundFile music, flip, chaching;
  - Joel Franco
  */
 
-color backgroundColor = color(0);                                         // Initializes backgroundColor to black
-Card[] cards = new Card[9];                                               // 9 cards to be arranged into a 3x3 grid                       
-boolean pregameState, // Keeps track of game, round and roundResult states                             
-  gameState = false, 
-  roundState = false, 
-  roundResultState = false, 
-  musicToggle = true;    
-Player player1, player2;                                                  // Initializes two player objects    
-String playerBet = new String("");                                        // Initializes an empty string to store playerBet amount
-int player2turnCheck = 0;
+Card[] cards = new Card[9];  // 9 cards to be arranged into a 3x3 grid                       
+boolean menuState, gameState, roundState, roundResultState;  // Keeps track of menu, game, round and roundResult states
+Player player1, player2;  // Initializes two player objects    
+String playerBet = new String("");  // Initializes an empty string to store playerBet amount
 
 void setup() {
-  //fullScreen();
-  size(displayWidth, displayHeight);
-  background(backgroundColor);
+  fullScreen();
+  background(0);
   textSize(18);
+
+  // Makes 2 players
   player1 = new Player();
   player2 = new Player();
-  pregameState = true;
-  generateCards();
-  //player1.setTurn(true);
 
-  music = new SoundFile(this, "jazz.mp3");
-  flip = new SoundFile(this, "flip.mp3");
-  chaching = new SoundFile(this, "chaching.mp3");
-  music.loop(1, 0.1);
+  // Assigns proper states for game, round and menu
+  gameState = false;
+  roundState = false;
+  menuState = true;     // Displays menu
+
+  generateCards();  // Populates an array with randomly generated cards
+
+  // Initializes music/sounds
+  //music = new SoundFile(this, "jazz.mp3");
+  //flip = new SoundFile(this, "flip.mp3");
+  //chaching = new SoundFile(this, "chaching.mp3");
+  //music.loop(1, 0.1);
 }
 
 void draw() {
-  background(backgroundColor);
-  if  (pregameState == true) {
+  background(0);
+  if  (menuState == true) {
     showMenu();
   } else {
     if (gameState == true) {
@@ -88,101 +88,113 @@ void draw() {
 }
 
 
-  void cardSelected() {
-    if (player1.getCoordinateX() != 0) {
-      noFill();
-      stroke(255, 0, 0);
-      rect(player1.getCoordinateX() - 30, player1.getCoordinateY() - 40, 60, 80);
-    }
-    if (player2.getCoordinateX() != 0) {
-      noFill();
-      stroke(0, 0, 255);
-      rect(player2.getCoordinateX() - 30, player2.getCoordinateY() - 40, 60, 80);
-    }
+void cardSelected() {
+  if (player1.getCoordinateX() != 0) {
+    noFill();
+    stroke(255, 0, 0);
+    rect(player1.getCoordinateX() - 30, player1.getCoordinateY() - 40, 60, 80);
   }
+  if (player2.getCoordinateX() != 0) {
+    noFill();
+    stroke(0, 0, 255);
+    rect(player2.getCoordinateX() - 30, player2.getCoordinateY() - 40, 60, 80);
+  }
+}
 
-  void generateCards() {  // Generates the cards array with randomly sorted cards
-    int num = 0, wildcardCount = 0, headsCount = 0, tailsCount = 0, totalCount = 0;
-    String[] cardValues = {"wildcard", "heads", "tails"};
+void generateCards() {  // Generates the cards array with randomly sorted cards
+  int num = 0, wildcardCount = 0, headsCount = 0, tailsCount = 0, totalCount = 0;
+  String[] cardValues = {"wildcard", "heads", "tails"};
 
-    while (totalCount < 9) {
-      num = (int) random(0, 3);
-      if (num == 0) {
-        if (wildcardCount < 1) {
-          cards[totalCount] = new Card(cardValues[num]);
-          wildcardCount++;
-          totalCount++;
-        }
-      } else if (num == 1) {
-        if (headsCount < 4) {
-          cards[totalCount] = new Card(cardValues[num]);
-          headsCount++;
-          totalCount++;
-        }
-      } else if (num == 2) {
-        if (tailsCount < 4) {
-          cards[totalCount] = new Card(cardValues[num]);
-          tailsCount++;
-          totalCount++;
-        }
+  while (totalCount < 9) {
+    num = (int) random(0, 3);
+    if (num == 0) {
+      if (wildcardCount < 1) {
+        cards[totalCount] = new Card(cardValues[num]);
+        wildcardCount++;
+        totalCount++;
+      }
+    } else if (num == 1) {
+      if (headsCount < 4) {
+        cards[totalCount] = new Card(cardValues[num]);
+        headsCount++;
+        totalCount++;
+      }
+    } else if (num == 2) {
+      if (tailsCount < 4) {
+        cards[totalCount] = new Card(cardValues[num]);
+        tailsCount++;
+        totalCount++;
       }
     }
   }
+}
 
 
 
-  void roundResult (Player p1, Player p2) {
-    fill(255);
-    text("Press ENTER to continue", width/2, height-75);
-    if (roundResultState == true) {
-      if ( (p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails") ) {
-        p1.gainPoints();
-        p2.losePoints();
-        roundResultState = false;
-      } else if ( (p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads") ) {
-        p1.losePoints();
-        p2.gainPoints();  
-        roundResultState = false;
-      } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
-        roundResultState = false;
-      }
-      chaching.play();
+void roundResult (Player p1, Player p2) {
+  fill(255);
+  text("Press ENTER to continue", width/2, height-75);
+  if (roundResultState == true) {
+    if ( (p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails") ) {
+      p1.gainPoints();
+      p2.losePoints();
+      roundResultState = false;
+    } else if ( (p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads") ) {
+      p1.losePoints();
+      p2.gainPoints();  
+      roundResultState = false;
+    } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
+      roundResultState = false;
     }
-
-    if ((p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails")) {
-      fill(255, 0, 0);
-      text("Player 1 wins the round!", width/2, height-100);
-    } else if ((p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads")) {
-      fill(0, 0, 255);
-      text("Player 2 wins the round!", width/2, height-100);
-    } else {
-      fill(255, 0, 255);
-      text("It's a draw!", width/2, height-100);
-    }
+    chaching.play();
   }
 
+  if ((p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails")) {
+    fill(255, 0, 0);
+    text("Player 1 wins the round!", width/2, height-100);
+  } else if ((p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads")) {
+    fill(0, 0, 255);
+    text("Player 2 wins the round!", width/2, height-100);
+  } else {
+    fill(255, 0, 255);
+    text("It's a draw!", width/2, height-100);
+  }
+}
 
-  void showMenu() {
-    text("Matching 'Pennies'", width/2, height/4);
-  }
-  void roundReset() {
-    roundState = true;
-    generateCards();
-    playerBet = "";
-    player1.setWager(0);
-    player2.setWager(0);
-    player1.setTurn(true);
-    player2turnCheck = 0;
-    player1.setCoordinates(0, 0);
-    player2.setCoordinates(0, 0);
-    //setup();
-  }
+void showMenu() {
+  textAlign(CENTER);
+  textSize(72);
+  text("Matching 'Pennies'", width/2, height/4);
+  rectMode(CENTER);
+  textSize(24);
+  rect(width/2, height/2, 250, 50, 20);
+  rect(width/2, 75 + height/2, 250, 50, 20);
+  rect(width/2, 150 + height/2, 250, 50, 20);
+  fill(255, 0, 0);
+  textAlign(CENTER, CENTER);
+  text("Start", width/2, height/2);
+  text("Instructions", width/2, 75 + height/2);
+  text("Settings", width/2, 150 + height/2);
+  fill(255);
+}
+void roundReset() {
+  roundState = true;
+  generateCards();
+  playerBet = "";
+  player1.setWager(0);
+  player2.setWager(0);
+  player1.setTurn(true);
+  player2.setTurn(false);
+  player1.setCoordinates(0, 0);
+  player2.setCoordinates(0, 0);
+  //setup();
+}
 
-  void gameReset() {
-    roundReset();
-    player1.setPoints(500);
-    player2.setPoints(500);
-    // gameState = true;
-    music.stop();
-    setup();
-  }
+void gameReset() {
+  roundReset();
+  player1.setPoints(500);
+  player2.setPoints(500);
+  // gameState = true;
+  music.stop();
+  setup();
+}
