@@ -15,6 +15,7 @@ Card[] cards = new Card[9];                   // 9 cards to be arranged into a 3
 boolean gameState = true, roundState = true;  // Keeps track of both game and round states  
 Player player1, player2;                      // Creates two player objects    
 String playerBet = new String("");
+int player2turnCheck = 0;
 
 void setup() {
   size(1400, 1000);
@@ -89,7 +90,7 @@ void mouseClicked() {
   for (int i = 0; i < cards.length; i++) {
     if (dist(mouseX, mouseY, cards[i].x, cards[i].y) < 35) {
       if (cards[i].getClicked() == false) {
-        if (player1.getTurn() == true && player1.getWager() != 0) { // Set wagers to 0 when there's an invalid bet
+        if (player1.getTurn() == true && player1.getWager() != 0) { // Bets are set to 0 when there's an invalid bet
           player1.setCoin(cards[i].getCoin()); 
           player1.setTurn(false);
           player2.setTurn(true);
@@ -208,6 +209,10 @@ void enterBet() {
       text(playerBet, width/6, height/2+250);
     } else if (player1.getTurn() == false) {
       text(" Player 2, make your bet. ", 5 * width/6, height/2+200);
+      if(player2turnCheck == 0){
+        playerBet = "";
+        player2turnCheck++;
+      }
       if (checkBetInput() == true) {
         player2.setWager(Integer.parseInt(playerBet));
       } else if (checkBetInput() == false) {
@@ -246,6 +251,7 @@ void roundReset() {
   player2.setWager(0);
   playerBet = "";
   player1.setTurn(true);
+  player2turnCheck = 0;
   //setup();
 }
 
