@@ -15,7 +15,7 @@ void keyPressed() {
       playerBet=playerBet.substring(0, playerBet.length()-1);
     }
   } else if (key == 'm' || key == 'M') {
-    if (pregameState) {
+    if (menuState) {
       if (music.isPlaying()) {
         music.pause();
       } else {
