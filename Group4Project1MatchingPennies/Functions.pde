@@ -217,6 +217,11 @@ boolean checkBetInput() {  // Checks whether user inputted proper betting amount
       text(" You must bet a minimum of 50 points. ", width/2, 13*height/16);
       return false;
     } else {
+      if (player1.turn) {
+      text("Enter a valid bet, Player 1.", width/2, 13*height/16);
+    } else if (player2.turn) {
+      text("Enter a valid bet, Player 2.", width/2, 13*height/16);
+    }
       return true;
     }
   }
