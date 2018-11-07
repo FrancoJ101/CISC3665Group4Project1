@@ -3,7 +3,7 @@ class Player {
   boolean turn;   // Whether player made selection or not
   int points;
   int wager;
-  int x,y;
+  int x, y;
   Player() {
     coin = " ";
     turn = false;
@@ -32,15 +32,15 @@ class Player {
   void setWager(int value) {
     wager = value;
   }
-  void setCoordinates(int cardX, int cardY){
+  void setCoordinates(int cardX, int cardY) {
     x = cardX;
     y = cardY;
   }
 
-  int getCoordinateX(){
+  int getCoordinateX() {
     return x;
   }
-  int getCoordinateY(){
+  int getCoordinateY() {
     return y;
   }
   String getCoin() {
