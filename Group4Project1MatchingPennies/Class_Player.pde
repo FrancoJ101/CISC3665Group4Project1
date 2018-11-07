@@ -18,47 +18,6 @@ class Player {
     points+=wager;
   }
 
-  void setCoin(String value) {
-    coin = value;
-  }
-
-  void setTurn(boolean selected) {
-    turn = selected;
-  }
-
-  void setPoints(int changed) {
-    points = changed;
-  }
-  void setWager(int value) {
-    wager = value;
-  }
-  void setCoordinates(int cardX, int cardY) {
-    x = cardX;
-    y = cardY;
-  }
-
-  int getCoordinateX() {
-    return x;
-  }
-  int getCoordinateY() {
-    return y;
-  }
-  String getCoin() {
-    return coin;
-  }
-
-  boolean getTurn() {
-    return turn;
-  }
-
-  int getPoints() {
-    return points;
-  }
-
-  int getWager() {
-    return wager;
-  }
-
   void reset()
   {
     coin = " ";

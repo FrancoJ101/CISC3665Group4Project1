@@ -1,3 +1,17 @@
+// Grid Function //
+void createGrid() { // Creates a grid based on rows and columns
+  int num = 0;
+  for (int i = 2; i <= 4; i++) {                             // Rows
+    for (int j = 2; j <= 4; j++) {                           // Columns
+      cards[num].x = i*width/6;                              // Set X-coord of card
+      cards[num].y = j*height/6;      // Set Y-coord of card
+      image(cards[num].getImage(), i*width/6, j*height/6);   // Display cardsgetCLlickee}
+      num++;
+    }
+  }
+}
+
+// User Input Functions //
 void keyPressed() {
   if (key == ' ') {
     if (gameState == false) {
@@ -21,18 +35,20 @@ void mouseClicked() {
   for (int i = 0; i < cards.length; i++) {  // Assigns a card's value to the player who clicks on it
     if (dist(mouseX, mouseY, cards[i].x, cards[i].y) < 35) {
       if (cards[i].getClicked() == false) {
-        if (player1.getTurn() == true && player1.getWager() != 0) { // Bets are set to 0 when there's an invalid bet
+        if (player1.turn == true && player1.wager != 0) { // Bets are set to 0 when there's an invalid bet
           flip.play();
-          player1.setCoin(cards[i].getCoin()); 
-          player1.setTurn(false);
-          player1.setCoordinates(cards[i].x, cards[i].y);
-          player2.setTurn(true);
+          player1.coin = (cards[i].coin); 
+          player1.turn = false;
+          player1.x = cards[i].x;
+          player1.y = cards[i].y;
+          player2.turn = true;
           cards[i].setClicked();
-        } else if (player2.getTurn() == true && player2.getWager() != 0) {
+        } else if (player2.turn == true && player2.wager != 0) {
           flip.play();
-          player2.setCoin(cards[i].getCoin());
-          player2.setTurn(false);
-          player2.setCoordinates(cards[i].x, cards[i].y);
+          player2.coin = cards[i].coin;
+          player2.turn = false;
+          player2.x = cards[i].x;
+          player2.y = cards[i].y;          
           cards[i].setClicked();
         }
       }
@@ -40,16 +56,17 @@ void mouseClicked() {
   }
 }
 
+// Card Functions //
 void cardSelected() {
-  if (player1.getCoordinateX() != 0) {
+  if (player1.x != 0) {
     noFill();
     stroke(255, 0, 0);
-    rect(player1.getCoordinateX() - 30, player1.getCoordinateY() - 40, 60, 80);
+    rect(player1.x - 30, player1.y - 40, 60, 80);
   }
-  if (player2.getCoordinateX() != 0) {
+  if (player2.x != 0) {
     noFill();
-    stroke(0, 0, 255);
-    rect(player2.getCoordinateX() - 30, player2.getCoordinateY() - 40, 60, 80);
+    stroke(46, 177, 255);
+    rect(player2.x - 30, player2.y - 40, 60, 80);
   }
 }
 
@@ -81,6 +98,7 @@ void generateCards() {  // Generates the cards array with randomly sorted cards
   }
 }
 
+// Print Functions //
 void printRules() {  // Prints the basic rules of the game to screen
   textAlign(CENTER);
   textSize(22);
@@ -92,13 +110,13 @@ void printRules() {  // Prints the basic rules of the game to screen
   text("If both cards match, Player 1 wins. If both cards do not match, Player 2 wins. If Wildcard has been selected by any player, the round ends in a draw.", width/2, height/5.25);  
   text("To pick a card on your turn, first type in your bet using '0' through '9'. Use '-' to change your bet. Select a card after you have decided on your bet.", width/2, height/4.75);
   // Indicates which player's turn it is
-  if (player1.getTurn() && !player2.getTurn()) {
-    fill(255, 0, 0);
-    text("Player 1's turn to pick a card", width/6, height/2+50);
-  } else {
-    fill(0, 0, 255);
-    text("Player 2's turn to pick a card", 5*width/6, height/2+50);
-  }
+  //if (player1.getTurn() && !player2.getTurn()) {
+  //  fill(255, 0, 0);
+  //  text("Player 1's turn to pick a card", width/6, height/2+50);
+  //} else {
+  //  fill(46, 177, 255);
+  //  text("Player 2's turn to pick a card", 5*width/6, height/2+50);
+  //}
 }
 
 void printScore(Player p1, Player p2) {  // Prints the current score for each player
@@ -106,38 +124,38 @@ void printScore(Player p1, Player p2) {  // Prints the current score for each pl
   textSize(20);
   text("Player 1", width/6, height/2);
   textSize(18);
-  text("Points: " + p1.getPoints(), width/6, height/2 + 25);
-  fill(0, 0, 255);
+  text("Points: " + p1.points, width/6, height/2 + 25);
+  fill(46, 177, 255);
   textSize(20);
   text("Player 2", 5 * width/6, height/2);
   textSize(18);
-  text("Points: " + p2.getPoints(), 5 * width/6, height/2 + 25);
+  text("Points: " + p2.points, 5 * width/6, height/2 + 25);
 }
 
 void roundResult (Player p1, Player p2) {
   fill(255);
   text("Press ENTER to continue", width/2, height-75);
   if (roundResultState == true) {
-    if ( (p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails") ) {
+    if ( (p1.coin == "heads" && p2.coin == "heads") || (p1.coin == "tails" && p2.coin == "tails") ) {
       p1.gainPoints();
       p2.losePoints();
       chaching.play();
       roundResultState = false;
-    } else if ( (p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads") ) {
+    } else if ( (p1.coin == "heads" && p2.coin == "tails") || (p1.coin == "tails" && p2.coin == "heads") ) {
       p1.losePoints();
       p2.gainPoints();  
       chaching.play();
       roundResultState = false;
-    } else if (p1.getCoin() != " " && p2.getCoin() != " ") {
+    } else if (p1.coin != " " && p2.coin != " ") {
       roundResultState = false;
     }
   }
 
-  if ((p1.getCoin() == "heads" && p2.getCoin() == "heads") || (p1.getCoin() == "tails" && p2.getCoin() == "tails")) {
+  if ((p1.coin == "heads" && p2.coin == "heads") || (p1.coin == "tails" && p2.coin == "tails")) {
     fill(255, 0, 0);
     text("Player 1 wins the round!", width/2, height-100);
-  } else if ((p1.getCoin() == "heads" && p2.getCoin() == "tails") || (p1.getCoin() == "tails" && p2.getCoin() == "heads")) {
-    fill(0, 0, 255);
+  } else if ((p1.coin == "heads" && p2.coin == "tails") || (p1.coin == "tails" && p2.coin == "heads")) {
+    fill(46, 177, 255);
     text("Player 2 wins the round!", width/2, height-100);
   } else {
     fill(255, 0, 255);
@@ -145,65 +163,62 @@ void roundResult (Player p1, Player p2) {
   }
 }
 
+// Bet Functions //
 void enterBet() {
-  if (player1.getPoints() <= 50) {
-    fill(255, 0, 0);
-    text(" Player 1 must bet all points. ", width/6, height/2+220);
-    player2.setWager(player1.getPoints());
-    player1.setWager(player1.getPoints());
-  } else if (player2.getPoints() <= 50) {
-    fill(0, 0, 255);
-    text(" Player 2 must bet all points. ", 5 * width/6, height/2+220);
-    player2.setWager(player2.getPoints());
-    player1.setWager(player2.getPoints());
+  if (player1.points <= 50) {
+    player1.wager = player1.points;
+  } else if (player2.points <= 50) {
+    player2.wager = player2.points;
   }  
-
-  if (player1.getTurn() == true) {
+  if (player1.turn) {
     fill(255, 0, 0);
     text(" Player 1, make your bet. ", width/6, height/2+200);
     if (checkBetInput() == true) {
-      player1.setWager(parseInt(playerBet));
+      player1.wager = parseInt(playerBet);
     } else if (checkBetInput() == false) {
-      player1.setWager(0);
+      player1.wager = 0;
     }
-    text(playerBet, width/6, height/2+250);
-  } else if (player1.getTurn() == false) {
-    fill(0, 0, 255);
+    text(playerBet, width/2, 7*height/8);
+  } else if (!player1.turn) {
+    fill(46, 177, 255);
     text(" Player 2, make your bet. ", 5 * width/6, height/2+200);
     if (player2turnCheck == 0) {
       playerBet = "";
       player2turnCheck++;
     }
     if (checkBetInput() == true) {
-      player2.setWager(parseInt(playerBet));
+      player2.wager = parseInt(playerBet);
     } else if (checkBetInput() == false) {
-      player2.setWager(0);
+      player2.wager = 0;
     }
-    text(playerBet, 5 * width/6, height/2+250);
+    text(playerBet, width/2, 7*height/8);
   }
   fill(255, 0, 0);
-  text("Bet amount: " + player1.getWager(), width/6, height/2+275);
-  fill(0, 0, 255);
-  text("Bet amount: " + player2.getWager(), 5 * width/6, height/2+275);
+  text("Bet amount: " + player1.wager, width/6, height/2+275);
+  fill(46, 177, 255);
+  text("Bet amount: " + player2.wager, 5 * width/6, height/2+275);
+  fill(255);
+  //text(playerBet, width/2, 7*height/8);
 }
 
-boolean checkBetInput() {  // Checks whether user inputted proper betting amount
-  if (playerBet.length() > 6 || playerBet.length() <= 0) { // Limited the bets like this because parseInt
-    fill(255);
-    text("Enter a valid bet", width/2, 13*height/16);   // Number cannot be greater than 2 billion or be a null input
+boolean checkBetInput() {  // Checks whether user inputted proper betting amount }
+  if (playerBet.length() == 0) { // Limited the bets like this because parseI
+    if (player1.turn) {
+      text("Enter a valid bet, Player 1.", width/2, 13*height/16);
+    } else if (player2.turn) {
+      text("Enter a valid bet, Player 2.", width/2, 13*height/16);
+    }
     return false;
-  } else if (playerBet.length() <= 6 && playerBet.length() > 0) { //Needed to re-check lengths for possible crash with parseInt
-    if ((parseInt(playerBet) > player2.getPoints() && player2.getTurn() && !player1.getTurn()) || (parseInt(playerBet) > player1.getPoints() && player1.getTurn() && !player2.getTurn())) {
+  } else {
+    if ((parseInt(playerBet) > player2.points && player2.turn && !player1.turn) || (parseInt(playerBet) > player1.points && player1.turn && !player2.turn)) {
       text("  You do not have enough points for this bet. ", width/2, 13*height/16);
       return false;
-    } else if (parseInt(playerBet) < 50) {
+    } else if (parseInt(playerBet) < 50 && (player1.points >= 50 && player1.turn || player2.points >= 50 && player2.turn)) {
       text(" You must bet a minimum of 50 points. ", width/2, 13*height/16);
       return false;
     } else {
       return true;
     }
-  } else { 
-    return true;
   }
 }
 
@@ -211,32 +226,21 @@ void roundReset() {
   roundState = true;
   generateCards();
   playerBet = "";
-  player1.setWager(0);
-  player2.setWager(0);
-  player1.setTurn(true);
+  player1.wager = 0;
+  player2.wager = 0;
+  player1.turn = true;
   player2turnCheck = 0;
-  player1.setCoordinates(0, 0);
-  player2.setCoordinates(0, 0);
-  //setup();
+  player1.x = 0;
+  player1.y = 0;
+  player2.x = 0;
+  player2.y = 0;
 }
 
 void gameReset() {
   roundReset();
-  player1.setPoints(500);
-  player2.setPoints(500);
+  player1.points = 500;
+  player2.points = 500;
   gameState = true;
-  //music.stop();
+  music.pause();
   setup();
-}
-
-void createGrid() { // Creates a grid based on rows and columns
-  int num = 0;
-  for (int i = 2; i <= 4; i++) {                             // Rows
-    for (int j = 2; j <= 4; j++) {                           // Columns
-      cards[num].x = i*width/6;                              // Set X-coord of card
-      cards[num].y = j*height/6;      // Set Y-coord of card
-      image(cards[num].getImage(), i*width/6, j*height/6);   // Display cardsgetCLlickee}
-      num++;
-    }
-  }
 }

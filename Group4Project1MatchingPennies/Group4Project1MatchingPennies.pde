@@ -33,7 +33,7 @@ void setup() {
   gameState = true;
   roundState = true;
   roundResultState = false;
-  player1.setTurn(true);
+  player1.turn = true;
   // Music + Sounds
   music = new SoundFile(this, "jazz.mp3");
   flip = new SoundFile(this, "flip.mp3");
@@ -48,16 +48,16 @@ void draw() {
     printRules();
     printScore(player1, player2);
     cardSelected();
-    if (player1.getPoints() == 0 || player2.getPoints() == 0) {
+    if (player1.points == 0 || player2.points == 0) {
       gameState=false;
     }
     if (roundState == true) {
       printScore(player1, player2);
       enterBet();
-      if (player1.getTurn() == false && player2.getTurn() == false) {
+      if (player1.turn == false && player2.turn == false) {
         roundState = false;
         roundResultState = true;
-        if (player1.getPoints() == 0 || player2.getPoints() == 0) {
+        if (player1.points == 0 || player2.points == 0) {
           gameState=false;
         }
       }
@@ -66,13 +66,13 @@ void draw() {
     }
   } else {
     clear();
-    if (player1.getPoints() > player2.getPoints())
+    if (player1.points > player2.points)
     {
       fill(255, 0, 0);
-      text("Player 1 wins with " + player1.getPoints() + " points!", width/2, height/2);
-    } else if (player1.getPoints() < player2.getPoints()) {
-      fill(0, 0, 255);
-      text("Player 2 wins with " + player2.getPoints() + " points!", width/2, height/2);
+      text("Player 1 wins with " + player1.points + " points!", width/2, height/2);
+    } else if (player1.points < player2.points) {
+      fill(46, 177, 255);
+      text("Player 2 wins with " + player2.points + " points!", width/2, height/2);
     } else {
       fill(255, 0, 255);
       text("It's a draw!", width/2, height/2);
