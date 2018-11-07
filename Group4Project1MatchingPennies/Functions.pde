@@ -21,14 +21,14 @@ void keyPressed() {
     if (roundState == false) {  // Allows advancement to next round only if current round is over
       roundReset();
     }
-  } else if (key == 'i') {
+  } else if (key == 'i' || key == 'I') {
     instructionState = !instructionState;
   } else if (key == '0' || key == '1' || key == '2' || key == '3' || key == '4' ||
     key == '5' || key == '6' || key == '7' || key == '8' || key == '9') {
     if (!instructionState) {
       playerBet += (key - 48);
     }
-  } else if (key == 45) {
+  } else if (key == 45 || key == BACKSPACE) {
     if (playerBet.length() > 0 && !instructionState) {
       playerBet = playerBet.substring(0, playerBet.length()-1);
     }
@@ -106,13 +106,13 @@ void generateCards() {  // Generates the cards array with randomly sorted cards
 void printRules() {  // Prints the basic rules of the game to screen
   textSize(32);
   text("Instructions:", width/2, width/8);
-  text("There are three types of cards: Heads, Tails, and Wildcard", width/2, height/4 + 50);
+  text("There are three types of cards: Heads, Tails, and Wildcard.", width/2, height/4 + 50);
   text("Both players must place a bet before picking a card.", width/2, height/4 + 100);
   text("If both cards match, Player 1 wins. If both cards do not match, Player 2 wins.", width/2, height/4 + 150);
   text("If Wildcard has been selected by any player, the round ends in a draw.", width/2, height/4 + 200);
-  text("To pick a card on your turn, first type in your bet using '0' through '9'. Use '-' to change your bet.", width/2, height/4 + 250);
+  text("To pick a card on your turn, first type in your bet using '0' through '9'. Use '-' or BACKSPACE to change your bet.", width/2, height/4 + 250);
   text("Select a card after you have decided on your bet.", width/2, height/4 + 300);
-  text("Press i to go back to the game", width/2, 3 * height/4);
+  text("Press 'I' to go back to the game", width/2, 3 * height/4);
 }
 
 void printScore(Player p1, Player p2) {  // Prints the current score for each player

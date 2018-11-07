@@ -52,7 +52,7 @@ void draw() {
     textSize(72);
     text("Matching Pennies", width/2, height/8);
     textSize(24);
-    text("Press i to view instructions", width/2, height/8 + 100);
+    text("Press 'I' to view instructions.", width/2, height/8 + 100);
     cardSelected();
     if (player1.points == 0 || player2.points == 0) {  // If a player's points hit 0, end the game
       gameState=false;
@@ -89,6 +89,6 @@ void draw() {
       text("It's a draw!", width/2, height/2);
     }
     fill(255);
-    text("Press SPACE to reset game", width/2, height - 50);
+    text("Press SPACE to reset game.", width/2, height - 50);
   }
 }
