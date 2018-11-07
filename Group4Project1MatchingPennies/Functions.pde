@@ -21,11 +21,15 @@ void keyPressed() {
     if (roundState == false) {  // Allows advancement to next round only if current round is over
       roundReset();
     }
+  } else if (key == 'i') {
+    instructionState = !instructionState;
   } else if (key == '0' || key == '1' || key == '2' || key == '3' || key == '4' ||
     key == '5' || key == '6' || key == '7' || key == '8' || key == '9') {
-    playerBet += (key - 48);
+    if (!instructionState) {
+      playerBet += (key - 48);
+    }
   } else if (key == 45) {
-    if (playerBet.length() > 0) {
+    if (playerBet.length() > 0 && !instructionState) {
       playerBet = playerBet.substring(0, playerBet.length()-1);
     }
   }
@@ -100,23 +104,15 @@ void generateCards() {  // Generates the cards array with randomly sorted cards
 
 // Print Functions //
 void printRules() {  // Prints the basic rules of the game to screen
-  textAlign(CENTER);
-  textSize(22);
-  fill(255);
-  text("Matching Pennies", width/2, height/12);
-  textSize(18);
-  text("There are three types of cards: Heads, Tails, and Wildcard", width/2, height/7);
-  text("Both players must place a bet before picking a card.", width/2, height/6);
-  text("If both cards match, Player 1 wins. If both cards do not match, Player 2 wins. If Wildcard has been selected by any player, the round ends in a draw.", width/2, height/5.25);  
-  text("To pick a card on your turn, first type in your bet using '0' through '9'. Use '-' to change your bet. Select a card after you have decided on your bet.", width/2, height/4.75);
-  // Indicates which player's turn it is
-  //if (player1.getTurn() && !player2.getTurn()) {
-  //  fill(255, 0, 0);
-  //  text("Player 1's turn to pick a card", width/6, height/2+50);
-  //} else {
-  //  fill(46, 177, 255);
-  //  text("Player 2's turn to pick a card", 5*width/6, height/2+50);
-  //}
+  textSize(32);
+  text("Instructions:", width/2, width/8);
+  text("There are three types of cards: Heads, Tails, and Wildcard", width/2, height/4 + 50);
+  text("Both players must place a bet before picking a card.", width/2, height/4 + 100);
+  text("If both cards match, Player 1 wins. If both cards do not match, Player 2 wins.", width/2, height/4 + 150);
+  text("If Wildcard has been selected by any player, the round ends in a draw.", width/2, height/4 + 200);
+  text("To pick a card on your turn, first type in your bet using '0' through '9'. Use '-' to change your bet.", width/2, height/4 + 250);
+  text("Select a card after you have decided on your bet.", width/2, height/4 + 300);
+  text("Press i to go back to the game", width/2, 3 * height/4);
 }
 
 void printScore(Player p1, Player p2) {  // Prints the current score for each player
@@ -218,10 +214,10 @@ boolean checkBetInput() {  // Checks whether user inputted proper betting amount
       return false;
     } else {
       if (player1.turn) {
-      text("Enter a valid bet, Player 1.", width/2, 13*height/16);
-    } else if (player2.turn) {
-      text("Enter a valid bet, Player 2.", width/2, 13*height/16);
-    }
+        text("Enter a valid bet, Player 1.", width/2, 13*height/16);
+      } else if (player2.turn) {
+        text("Enter a valid bet, Player 2.", width/2, 13*height/16);
+      }
       return true;
     }
   }

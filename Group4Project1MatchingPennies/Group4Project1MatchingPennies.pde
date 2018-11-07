@@ -18,7 +18,7 @@ SoundFile music, flip, chaching;
 
 color backgroundColor = color(0);                   // Initializes backgroundColor to black
 Card[] cards = new Card[9];                         // 9 cards to be arranged into a 3x3 grid                       
-boolean gameState, roundState, roundResultState;    // Keeps track of game, round and roundResult states  
+boolean gameState, roundState, roundResultState, instructionState;    // Keeps track of game, round and roundResult states  
 Player player1, player2;                            // Initializes two player objects    
 String playerBet = new String("");                  // Initializes an empty string to store playerBet amount
 int player2turnCheck = 0;
@@ -33,6 +33,7 @@ void setup() {
   gameState = true;
   roundState = true;
   roundResultState = false;
+  instructionState = false;
   player1.turn = true;
   // Music + Sounds
   music = new SoundFile(this, "jazz.mp3");
@@ -43,28 +44,38 @@ void setup() {
 
 void draw() {
   background(backgroundColor);
-  if (gameState == true) {
+  if (gameState) {  // Initialize game
     createGrid();
-    printRules();
     printScore(player1, player2);
+    fill(255);
+    textAlign(CENTER);
+    textSize(72);
+    text("Matching Pennies", width/2, height/8);
+    textSize(24);
+    text("Press i to view instructions", width/2, height/8 + 100);
     cardSelected();
-    if (player1.points == 0 || player2.points == 0) {
+    if (player1.points == 0 || player2.points == 0) {  // If a player's points hit 0, end the game
       gameState=false;
     }
-    if (roundState == true) {
-      printScore(player1, player2);
-      enterBet();
-      if (player1.turn == false && player2.turn == false) {
-        roundState = false;
-        roundResultState = true;
-        if (player1.points == 0 || player2.points == 0) {
-          gameState=false;
+    if (roundState) {  // Setup round config
+      if (instructionState) {
+        clear();
+        printRules();
+      } else {
+        printScore(player1, player2);
+        enterBet();
+        if (player1.turn == false && player2.turn == false) {
+          roundState = false;
+          roundResultState = true;
+          if (player1.points == 0 || player2.points == 0) {
+            gameState=false;
+          }
         }
       }
-    } else {
+    } else {  // Print results of round
       roundResult(player1, player2);
     }
-  } else {
+  } else {  // Display end game results
     clear();
     if (player1.points > player2.points)
     {
