@@ -29,4 +29,4 @@ coins in your digitized game. You may revise starting with the constitutive rule
 - [Project Questions](https://docs.google.com/document/d/1YQQet3zwv6L78opNYZV6jEZPtTAthXQq14Vr0ea3i6k/edit)
 
 ## Screenshots
-![screen-1](https://imgur.com/a/KbYcOAo)
+![screen-1](https://i.imgur.com/W5gZCCT.png)
