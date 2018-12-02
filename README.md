@@ -21,7 +21,7 @@ coins in your digitized game. You may revise starting with the constitutive rule
 ## Links
 - [Original Game](https://www.openprocessing.org/sketch/602915)
 
-- [Original Game (Revised](https://www.openprocessing.org/sketch/605073)
+- [Original Game (Revised)](https://www.openprocessing.org/sketch/605073)
 
 - [Final Version](https://www.openprocessing.org/sketch/622216)
 
