@@ -5,10 +5,9 @@ You have been randomly divided into eight groups (five students per group).
 Your group has been assigned the following not-very-exciting game:
 
 * **Matching Pennies:**
-  
-  Two-player game both players each have a penny and choose either heads or
-  tails. Both players reveal their pennies simultaneously; if they match, player A wins; if they don't, player
-  B wins.
+  - Two-player game both players each have a penny and choose either heads or
+    tails. Both players reveal their pennies simultaneously; if they match, player A wins; if they don't, player
+    B wins.
   
 Create a digital version of your game using Processing. You may assume that two (or more) players are
 standing around one computer sharing the monitor and keyboard. Make sure that each player knows when
