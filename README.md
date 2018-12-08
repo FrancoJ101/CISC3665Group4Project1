@@ -1,4 +1,4 @@
-# CISC 3665 - Project 1 (Group 4)
+# Matching Pennies Remake
 
 ## Instructions 📜
 You have been randomly divided into eight groups (five students per group).
