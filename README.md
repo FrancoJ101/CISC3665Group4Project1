@@ -1,4 +1,4 @@
-# Matching Pennies Remake
+# Matching Pennies (Revised)
 
 ## Instructions 📜
 You have been randomly divided into eight groups (five students per group).
